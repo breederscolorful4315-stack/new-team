@@ -1,0 +1,743 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>喋って本キット 不登校版</title>
+<style>
+:root{
+  --bg:#0c0e12; --panel:#14171d; --panel2:#1b1f27; --line:#2b313b;
+  --tx:#eef2f7; --tx2:#98a3b3; --tx3:#6d7787;
+  --acc:#ffb020; --ok:#3ad07f; --ng:#ff5470; --yl:#ffd166;
+  --r:14px;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{background:var(--bg);color:var(--tx);
+  font-family:-apple-system,BlinkMacSystemFont,"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic UI","Yu Gothic",Meiryo,sans-serif;
+  font-size:16px;line-height:1.75;letter-spacing:.01em;padding-bottom:110px}
+.wrap{max-width:880px;margin:0 auto;padding:0 16px}
+header{background:linear-gradient(180deg,#171b22 0%,#0c0e12 100%);
+  border-bottom:1px solid var(--line);padding:24px 0 20px}
+.badge{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.14em;
+  color:#0c0e12;background:var(--acc);padding:4px 10px;border-radius:100px}
+h1{font-size:27px;line-height:1.35;margin:12px 0 6px;font-weight:800;letter-spacing:-.01em}
+.sub{color:var(--tx2);font-size:14px;margin:0}
+.byline{color:var(--tx3);font-size:12px;margin-top:12px}
+.privacy{margin-top:14px;background:rgba(58,208,127,.08);border:1px solid rgba(58,208,127,.35);
+  border-radius:10px;padding:10px 13px;font-size:12.5px;color:#8ef0bb;font-weight:700}
+.setbar{margin:20px 0 0}
+.setcard{background:var(--panel);border:1px solid var(--acc);border-radius:var(--r);padding:15px}
+.setttl{font-size:12px;font-weight:800;color:var(--acc);letter-spacing:.12em;margin-bottom:11px}
+label.lb{display:block;font-size:11.5px;font-weight:700;color:var(--tx2);letter-spacing:.08em;margin:0 0 6px}
+select,input[type=text],input[type=number]{width:100%;background:var(--panel2);color:var(--tx);
+  border:1px solid var(--line);border-radius:10px;padding:13px 12px;font-size:16px;font-family:inherit;
+  appearance:none;-webkit-appearance:none}
+select:focus,input:focus,textarea:focus{outline:2px solid var(--acc);outline-offset:1px}
+.selwrap{position:relative}
+.selwrap::after{content:"";position:absolute;right:14px;top:50%;width:8px;height:8px;
+  border-right:2px solid var(--tx2);border-bottom:2px solid var(--tx2);
+  transform:translateY(-70%) rotate(45deg);pointer-events:none}
+.g2{display:grid;grid-template-columns:1fr;gap:11px}
+@media(min-width:640px){.g2{grid-template-columns:1fr 1fr}}
+.readout{margin-top:12px;background:var(--panel2);border:1px dashed var(--line);
+  border-radius:10px;padding:11px 13px;font-size:13.5px;color:var(--tx2)}
+.readout b{color:var(--acc);font-weight:700}
+nav{position:sticky;top:0;z-index:30;background:rgba(12,14,18,.94);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);margin-top:22px}
+.tabs{display:flex;gap:6px;max-width:880px;margin:0 auto;padding:9px 16px}
+.tab{flex:1;text-align:center;padding:11px 6px;border-radius:10px;background:var(--panel);
+  border:1px solid var(--line);cursor:pointer;font-weight:800;font-size:13.5px;line-height:1.35;color:var(--tx2)}
+.tab .num{display:block;font-size:10.5px;letter-spacing:.14em;color:var(--tx3);font-weight:800}
+.tab.on{background:var(--acc);border-color:var(--acc);color:#0c0e12}
+.tab.on .num{color:#0c0e12;opacity:.7}
+.panel{display:none;padding-top:24px}
+.panel.on{display:block}
+section{margin:0 0 28px}
+.step{display:flex;align-items:center;gap:10px;margin:0 0 12px}
+.stepno{flex:0 0 auto;width:29px;height:29px;border-radius:50%;background:var(--acc);
+  display:flex;align-items:center;justify-content:center;font-size:13.5px;font-weight:800;color:#0c0e12}
+.steptitle{font-size:19px;font-weight:800;letter-spacing:-.01em}
+.hint{color:var(--tx2);font-size:13.5px;margin:0 0 13px;padding-left:39px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:16px}
+.card+.card{margin-top:12px}
+.lbl{font-size:12.5px;font-weight:800;color:var(--acc);letter-spacing:.1em}
+.pbox{background:#0a0c10;border:1px solid var(--line);border-radius:10px;padding:14px;margin-top:10px}
+pre{margin:0;white-space:pre-wrap;word-break:break-word;font-size:13.5px;line-height:1.72;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,"Yu Gothic",monospace;color:#dbe3ee}
+pre.jp{font-family:inherit;font-size:14.5px;line-height:1.85}
+.btnrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+button{font-family:inherit;font-size:15px;font-weight:800;border:0;border-radius:10px;
+  padding:14px 18px;cursor:pointer;letter-spacing:.02em}
+.b1{background:var(--acc);color:#0c0e12;flex:1 1 auto;min-width:170px}
+.b1:active{transform:translateY(1px)}
+.b2{background:var(--panel2);color:var(--tx);border:1px solid var(--line)}
+.b1.copied{background:var(--ok);color:#08120c}
+.locked{opacity:.34;pointer-events:none;filter:grayscale(.5)}
+.shelf{display:grid;gap:10px;grid-template-columns:1fr}
+@media(min-width:700px){.shelf{grid-template-columns:1fr 1fr}}
+.book{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px;
+  display:flex;flex-direction:column;gap:7px;cursor:pointer}
+.book:hover{border-color:var(--acc)}
+.book.on{border-color:var(--acc);background:#1d1a12}
+.bn{font-size:11px;font-weight:800;color:var(--acc);letter-spacing:.12em}
+.bt{font-size:15px;font-weight:700;line-height:1.5}
+.bk{font-size:12.5px;color:var(--tx2)}
+.bp{font-size:12.5px;color:var(--tx3);margin-top:auto}
+input[type=range]{width:100%;appearance:none;-webkit-appearance:none;height:34px;background:transparent}
+input[type=range]::-webkit-slider-runnable-track{height:6px;background:var(--panel2);border-radius:100px;border:1px solid var(--line)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:28px;height:28px;border-radius:50%;
+  background:var(--acc);margin-top:-12px;border:0;cursor:pointer}
+.big{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+@media(min-width:640px){.big{grid-template-columns:repeat(3,1fr)}}
+.kpi{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:12px 13px}
+.kpi .k{font-size:11.5px;color:var(--tx2);letter-spacing:.06em;font-weight:700}
+.kpi .v{font-size:25px;font-weight:800;letter-spacing:-.02em;line-height:1.3;margin-top:2px}
+.kpi .u{font-size:13px;color:var(--tx2);font-weight:700;margin-left:2px}
+.kpi.hi .v{color:var(--acc)}
+.verdict{margin-top:14px;border-radius:12px;padding:14px 16px;font-weight:800;font-size:16px;line-height:1.6}
+.v-ok{background:rgba(58,208,127,.12);border:1px solid rgba(58,208,127,.45);color:#8ef0bb}
+.v-mid{background:rgba(255,209,102,.1);border:1px solid rgba(255,209,102,.45);color:#ffe0a3}
+.v-ng{background:rgba(255,84,112,.1);border:1px solid rgba(255,84,112,.45);color:#ffa9b8}
+.verdict .sm{display:block;font-weight:600;font-size:13.5px;color:var(--tx2);margin-top:6px}
+table{width:100%;border-collapse:collapse;margin-top:12px;font-size:14px}
+th,td{padding:10px 8px;text-align:right;border-bottom:1px solid var(--line)}
+th{color:var(--tx2);font-size:11.5px;letter-spacing:.06em;font-weight:700;text-align:right}
+th:first-child,td:first-child{text-align:left}
+tr.on td{background:rgba(255,176,32,.12);color:var(--acc);font-weight:800}
+.scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+.ttl{display:flex;gap:10px;align-items:flex-start;padding:11px 0;border-bottom:1px solid var(--line)}
+.ttl .n{flex:0 0 auto;font-size:11px;font-weight:800;color:var(--acc);letter-spacing:.1em;padding-top:4px}
+.ttl .t{flex:1;font-size:15px;font-weight:700;line-height:1.55}
+.ttl button{padding:8px 12px;font-size:12.5px;background:var(--panel2);color:var(--tx);border:1px solid var(--line)}
+.flag{margin-top:10px;font-size:13px;font-weight:700;padding:10px 12px;border-radius:10px}
+.flag.bad{background:rgba(255,84,112,.12);color:#ffa9b8;border:1px solid rgba(255,84,112,.4)}
+.flag.good{background:rgba(58,208,127,.1);color:#8ef0bb;border:1px solid rgba(58,208,127,.35)}
+textarea{width:100%;min-height:190px;background:var(--panel2);color:var(--tx);border:1px solid var(--line);
+  border-radius:10px;padding:14px;font-size:15px;font-family:inherit;line-height:1.8;resize:vertical}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chip{font-size:12.5px;font-weight:800;padding:7px 12px;border-radius:100px;border:1px solid var(--line);
+  background:var(--panel2);color:var(--tx2)}
+.chip.red{background:rgba(255,84,112,.14);border-color:rgba(255,84,112,.5);color:#ffa9b8}
+.chip.yl{background:rgba(255,209,102,.12);border-color:rgba(255,209,102,.45);color:#ffe0a3}
+.result{margin-top:14px;background:#0a0c10;border:1px solid var(--line);border-radius:10px;padding:14px;
+  max-height:320px;overflow:auto;font-size:14.5px;line-height:1.95;white-space:pre-wrap;word-break:break-word}
+mark.r{background:rgba(255,84,112,.28);color:#ffd6de;border-bottom:2px solid var(--ng);border-radius:3px;padding:1px 2px}
+mark.y{background:rgba(255,209,102,.22);color:#ffeec6;border-bottom:2px solid var(--yl);border-radius:3px;padding:1px 2px}
+.empty{color:var(--tx3)}
+ul.chk{list-style:none;margin:0;padding:0}
+ul.chk li{border-bottom:1px solid var(--line)}
+ul.chk label{display:flex;gap:12px;align-items:flex-start;padding:13px 2px;cursor:pointer}
+ul.chk input{appearance:none;-webkit-appearance:none;flex:0 0 auto;width:26px;height:26px;margin-top:2px;
+  border:2px solid var(--line);border-radius:7px;background:var(--panel2);position:relative;cursor:pointer}
+ul.chk input:checked{background:var(--ok);border-color:var(--ok)}
+ul.chk input:checked::after{content:"";position:absolute;left:8px;top:3px;width:6px;height:12px;
+  border-right:3px solid #08120c;border-bottom:3px solid #08120c;transform:rotate(45deg)}
+ul.chk .wr{display:block;min-width:0}
+ul.chk .t,ul.chk .d{display:block}
+ul.chk .t{font-size:15px;font-weight:700;line-height:1.55}
+ul.chk .d{font-size:12.5px;color:var(--tx2);font-weight:500;margin-top:2px}
+.bar{height:8px;background:var(--panel2);border:1px solid var(--line);border-radius:100px;overflow:hidden;margin:6px 0 14px}
+.bar i{display:block;height:100%;background:var(--ok);width:0;transition:width .25s}
+.gate{position:sticky;bottom:0;margin-top:24px;padding:17px 16px;border-radius:16px;
+  border:1px solid var(--line);background:#12151b;box-shadow:0 -12px 40px rgba(0,0,0,.6)}
+.gate .g1{font-size:22px;font-weight:800;line-height:1.4}
+.gate .gm{font-size:13.5px;color:var(--tx2);margin-top:6px;font-weight:600}
+.gate.no{border-color:rgba(255,84,112,.55);background:rgba(255,84,112,.07)}
+.gate.no .g1{color:#ffa9b8}
+.gate.yes{border-color:rgba(58,208,127,.6);background:rgba(58,208,127,.08)}
+.gate.yes .g1{color:#8ef0bb}
+.note{border-left:3px solid var(--acc);background:rgba(255,176,32,.06);padding:12px 14px;
+  border-radius:0 10px 10px 0;font-size:13.5px;color:var(--tx2);margin-top:12px}
+.note b{color:var(--tx)}
+.warn{border-left-color:var(--ng);background:rgba(255,84,112,.07)}
+.next{margin-top:22px;text-align:center}
+.next button{background:var(--panel2);color:var(--acc);border:1px solid var(--acc);width:100%;max-width:420px}
+footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--line);color:var(--tx3);font-size:12.5px}
+.toast{position:fixed;left:50%;bottom:120px;transform:translateX(-50%) translateY(20px);
+  background:var(--ok);color:#08120c;font-weight:800;font-size:14.5px;padding:12px 22px;border-radius:100px;
+  opacity:0;transition:.22s;pointer-events:none;z-index:99;max-width:90vw;text-align:center}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <span class="badge">視聴者特典　不登校専門家版</span>
+    <h1>喋って本キット　不登校版</h1>
+    <p class="sub">不登校との関わり方を1つ選ぶ。あとは、貼って、値段を決めて、検品を通すだけ。</p>
+    <p class="byline">「今ある武器で飯を食う」／三日坊主男子『はると』のほったらかし副業　合言葉はこのページには送らない。</p>
+    <div class="privacy">このページは通信しません。入力した文章は端末から一歩も出ません。機内モードでも動きます。<br>ただし ChatGPT に貼った内容は外に出ます。子どもの名前・学校名・地域は、喋る時点で入れないでください。</div>
+    <div class="setbar">
+      <div class="setcard">
+        <div class="setttl">ここだけ決めれば、下の3つが全部そろいます</div>
+        <div class="g2">
+          <div>
+            <label class="lb">不登校との関わり方（立場）</label>
+            <div class="selwrap"><select id="job"></select></div>
+          </div>
+          <div>
+            <label class="lb">いま作る1冊</label>
+            <div class="selwrap"><select id="theme"></select></div>
+          </div>
+        </div>
+        <div style="margin-top:11px">
+          <label class="lb">リストに無い立場はここに入力（任意）</label>
+          <input type="text" id="jobfree" placeholder="例：不登校の子向けオンライン教室の講師" autocomplete="off">
+        </div>
+        <div class="readout" id="ro"></div>
+      </div>
+    </div>
+  </div>
+</header>
+<nav>
+  <div class="tabs">
+    <div class="tab on" data-t="1"><span class="num">1</span>作る</div>
+    <div class="tab" data-t="2"><span class="num">2</span>値段を決める</div>
+    <div class="tab" data-t="3"><span class="num">3</span>検品して出す</div>
+  </div>
+</nav>
+<div class="wrap">
+<div class="panel on" id="t1">
+<section>
+  <div class="step"><div class="stepno">A</div><div class="steptitle">4回貼る。順番どおりに。</div></div>
+  <p class="hint">ChatGPT。同じチャットの続き。上から1つずつ。前の返事が出てから次を貼る。送信は右下の矢印。Enterは禁止。</p>
+  <div class="card">
+    <div class="lbl">貼る 1 ／ 見てきたことを、外から見つけてもらう</div>
+    <div class="pbox"><pre id="p1"></pre></div>
+    <div class="btnrow">
+      <button class="b1" data-c="p1">この文をコピー</button>
+      <button class="b2" data-v="p1">声で入れる用（頭だけ）</button>
+    </div>
+    <div class="note"><b>ここが分かれ目です。</b>画面左下のアカウント名 → 設定 → パーソナライズ。「カスタム指示」と「メモリ」をOFF。切らないと、同じ言葉で違う答えが出る。</div>
+  </div>
+  <div class="card locked" id="c2">
+    <div class="lbl">貼る 2 ／ ネタ3つと、章立て8</div>
+    <div class="pbox"><pre id="p2"></pre></div>
+    <div class="btnrow"><button class="b1" data-c="p2">この文をコピー</button></div>
+    <div class="note"><b>1つしか出ない時は「あと2つ」。12章になったら「8章にまとめて」。</b>選ぶ軸は「詳しいこと」ではなく「読む人（親・先生・本人）が今困っていること」。</div>
+  </div>
+  <div class="card locked" id="c3">
+    <div class="lbl">貼る 3 ／ 喋った言葉を、原稿にする</div>
+    <div class="pbox"><pre id="p3"></pre></div>
+    <div class="btnrow"><button class="b1" data-c="p3">この文をコピー</button></div>
+    <div class="note warn"><b>左がマイク（音声入力）。右の青い丸は押すな。</b>青い丸は会話モード。工程が飛ぶ。切れてもそこで送って、続きを足せ。8章分、これを繰り返す。<br><b>事例を喋るときは「ある小学5年生の男の子」まで。</b>名前・学校名・地域・時期の組み合わせで、本人には分かってしまう。</div>
+  </div>
+  <div class="card locked" id="c4">
+    <div class="lbl">貼る 4 ／ 商品ページの材料</div>
+    <div class="pbox"><pre id="p4"></pre></div>
+    <div class="btnrow"><button class="b1" data-c="p4">この文をコピー</button></div>
+    <div class="note"><b>フリガナはカタカナ。ローマ字に括弧・ピリオド・コンマは使えない。</b>日本語タイトルだとこの2つが必須。ここで止まる人が多いので、先に作らせてある。</div>
+  </div>
+</section>
+<section>
+  <div class="step"><div class="stepno">B</div><div class="steptitle">ChatGPT → Canva → KDP</div></div>
+  <div class="card">
+    <div style="font-size:14.5px;line-height:2">
+      1. chatgpt.com　カスタム指示とメモリをOFF　→　新しいチャット（Ctrl + Shift + O）<br>
+      2. 貼る1 → 一言で答える（喋っていい） → 貼る2 → マイクで章ごとに喋る → 貼る3 → 8章繰り返す → 貼る4<br>
+      3. 表紙は題名と著者名だけ。子どもの写真・ランドセル姿の実写は使わない。サイズは KDP のアップロード画面に出た数字<br>
+      4. kdp.amazon.co.jp　本棚の上「タイトルの新規作成」→「電子書籍 (マンガ以外)」<br>
+      5. 言語は日本語。フリガナはカタカナ。サブタイトルも入れる（「不登校」「親」など検索される言葉）<br>
+      6. 権利は「私は著作権者であり」。性的表現は「いいえ」。主なマーケットプレイスは Amazon.co.jp<br>
+      7. KDP セレクトにチェック。出版地域はすべての地域（全世界13カ国。翻訳はしない）<br>
+      8. ロイヤリティ70%。電子1,200円。紙は1,500円（砕木パルプ紙）
+    </div>
+    <div class="note warn"><b>「Kindle 本を出版」の前に3点。</b>タイトルの誤字／権利の選択／価格。出版後にタイトルは直せない。審査は最大72時間。読み放題のKENPは翌月15日頃に確定。毎日見るな。</div>
+  </div>
+</section>
+<section>
+  <div class="step"><div class="stepno">C</div><div class="steptitle">2冊目以降の15本は、もう決まっています</div></div>
+  <p class="hint"><b style="color:var(--tx)">3冊目で止まる理由の半分は、次に何を作るか思いつかないことです。</b>不登校の本は、読む人の「時期」で棚が分かれます。</p>
+  <div class="shelf" id="shelf"></div>
+</section>
+<div class="next"><button data-go="2">値段を決める →</button></div>
+</div>
+
+<div class="panel" id="t2">
+<section>
+  <div class="step"><div class="stepno">A</div><div class="steptitle">電子の売値を、手取りから逆算する</div></div>
+  <p class="hint">1冊売れたときに、いくら残ってほしいか。70%を先に掛けて、配信コスト1MB1円を引く。</p>
+  <div class="card">
+    <label class="lb">1冊で欲しい手取り　<span id="wantLbl" style="color:var(--acc);font-size:14px">839円</span></label>
+    <input type="range" id="want" min="174" max="1154" step="1" value="839">
+    <div class="big">
+      <div class="kpi"><div class="k">計算（＋1 ÷ 0.7）</div><div class="v" id="raw">1,200</div></div>
+      <div class="kpi hi"><div class="k">電子の売値</div><div class="v" id="price">1,200<span class="u">円</span></div></div>
+      <div class="kpi"><div class="k">実際に残る手取り</div><div class="v" id="net">839<span class="u">円</span></div></div>
+    </div>
+    <div class="verdict v-ok" id="band70"></div>
+    <div class="note">撮影時点。電子 <b>1,200 × 0.7 = 840</b>。配信コストは1MBあたり1円。文章の本は1MB前後なので <b>840 − 1 = 839円</b>。70%が選べるのは ¥250〜¥1,650。電子は紙より20%以上安くないと70%不可。紙1,500の80%＝1,200が上限。</div>
+  </div>
+</section>
+<section>
+  <div class="step"><div class="stepno">B</div><div class="steptitle">月5万は、何冊分か</div></div>
+  <p class="hint">標準モデルは保有15冊・3ヶ月目40万1,012円。1冊あたり月26,734円。月5冊。1冊目の目標は、棚に並ぶこと。</p>
+  <div class="card">
+    <label class="lb">目標の月収　<span id="goalLbl" style="color:var(--acc);font-size:14px">5万円</span></label>
+    <input type="range" id="goal" min="10000" max="800000" step="1000" value="50000">
+    <div class="big">
+      <div class="kpi"><div class="k">必要な冊数</div><div class="v" id="needBooks">2<span class="u">冊</span></div></div>
+      <div class="kpi hi"><div class="k">月5冊で何ヶ月</div><div class="v" id="needMo">0.4<span class="u">ヶ月</span></div></div>
+      <div class="kpi"><div class="k">1冊あたり月</div><div class="v" id="perBook">26,734<span class="u">円</span></div></div>
+    </div>
+    <div class="verdict v-ok" id="verdict"></div>
+    <div class="note"><b>1冊目の目標は、棚に並ぶことです。</b>初月はゼロ。72時間の審査と、読み放題は翌月15日頃に確定。階段は 0 → 8〜18万 → 30〜40万。3ヶ月目の内訳は電子243,310／紙41,548／KU75,000／海外41,154。数字は標準モデルで、不登校ジャンルでの実績値ではありません。</div>
+    <div class="note warn"><b>固定費は ChatGPT 有料プラン月約3,100円だけ。</b>KDP 0円。Canva 0円。月5冊なので1冊の原価は 3,100 ÷ 5 ＝ 620円。画面の料金が違ったら同じ比率で直せ。</div>
+  </div>
+</section>
+<section>
+  <div class="step"><div class="stepno">C</div><div class="steptitle">手数料の早見</div></div>
+  <div class="card">
+    <div class="scroll"><table>
+      <thead><tr><th>何</th><th>数字</th></tr></thead>
+      <tbody>
+        <tr class="on"><td>電子 1,200円・70%</td><td>1,200 × 0.7 − 1 ＝ 839円</td></tr>
+        <tr><td>紙 1,500円・60%・砕木</td><td>1,500 × 0.6 − 411.20 ＝ 488.80円</td></tr>
+        <tr><td>紙・通常紙 100ページ</td><td>900 − 422 ＝ 478円</td></tr>
+        <tr><td>紙 999円以下</td><td>ロイヤリティ 50%</td></tr>
+        <tr><td>紙 1,000円以上</td><td>ロイヤリティ 60%</td></tr>
+        <tr><td>電子70%の価格帯</td><td>¥250 〜 ¥1,650</td></tr>
+        <tr><td>電子は紙より20%以上安く</td><td>紙1,500の80%＝1,200が上限</td></tr>
+        <tr><td>KDPセレクト</td><td>90日。Kindle Unlimited に載る</td></tr>
+        <tr><td>KU 1ページ</td><td>約0.5円。翌月15日頃に確定</td></tr>
+        <tr><td>海外13カ国</td><td>翻訳しない。日本語のまま並ぶ</td></tr>
+        <tr><td>1冊あたり月（15冊モデル）</td><td>401,012 ÷ 15 ＝ 26,734円</td></tr>
+        <tr><td>1冊の原価</td><td>3,100 ÷ 5 ＝ 620円</td></tr>
+      </tbody>
+    </table></div>
+    <div class="note">数字は撮影時点（2026-08-26台本）。出す前に kdp.amazon.co.jp のヘルプと価格設定画面で最新を確認してください。レビュー数からの逆算（÷2%×売値×70%）はKU混在で上振れする。</div>
+  </div>
+</section>
+<section>
+  <div class="step"><div class="stepno">D</div><div class="steptitle">中身紹介に貼る文の型</div></div>
+  <div class="card">
+    <div class="lbl">タイトル案</div>
+    <div id="titles"></div>
+    <div class="lbl" style="margin-top:18px">説明文の型（貼る4が本。これは型）</div>
+    <div class="pbox"><pre class="jp" id="desc"></pre></div>
+    <div class="btnrow"><button class="b1" data-c="desc">説明文をコピー</button></div>
+    <div class="lbl" style="margin-top:18px">自分で書いたタイトルを検査する</div>
+    <input type="text" id="check" placeholder="タイトルを貼ると、危ない言葉を検出します" autocomplete="off" style="margin-top:8px">
+    <div id="flag"></div>
+    <div class="note warn"><b>不登校の本で一番落ちるのは「約束」です。</b>「必ず学校に戻れる」「〇日で再登校」「治る」。読む親は追い詰められている。約束した瞬間に、低評価とクレームの本になる。</div>
+  </div>
+</section>
+<div class="next"><button data-go="3">検品して出す →</button></div>
+</div>
+
+<div class="panel" id="t3">
+<section>
+  <div class="step"><div class="stepno">A</div><div class="steptitle">内容紹介・キーワード・タイトルを、まるごと貼る</div></div>
+  <div class="card">
+    <textarea id="src" placeholder="貼る4の出力（内容紹介・キーワード・タイトル＋フリガナ＋ローマ字）を貼り付け"></textarea>
+    <div class="chips" id="chips"></div>
+    <div class="result empty" id="out"></div>
+    <div class="btnrow">
+      <button class="b1" id="redact">赤を伏字にしてコピー</button>
+      <button class="b2" id="clear">消す</button>
+    </div>
+    <div class="note warn"><b>赤はゼロ。</b>煽り（必ず／誰でも／絶対／完全版／月収／放置／稼げる）。約束（治る／完治／劇的／〇日で／100%／再登校率）。ローマ字の括弧・ピリオド・コンマ。ロゴとURL。<br><b>黄色は目で見る。</b>学校名や「〇〇くん」など特定につながる言葉。診断名・薬。「甘え」「怠け」「親のせい」など責める言葉（否定する文脈なら残してよい）。原稿本文の足し算は、貼る3の「補った箇所」で潰す。</div>
+  </div>
+</section>
+<section>
+  <div class="step"><div class="stepno">B</div><div class="steptitle">目でやる10個</div></div>
+  <div class="card"><div class="bar"><i id="bar1"></i></div><ul class="chk" id="c8"></ul></div>
+</section>
+<section>
+  <div class="step"><div class="stepno">C</div><div class="steptitle">規約と、公開のゲート</div></div>
+  <div class="card"><div class="bar"><i id="bar2"></i></div><ul class="chk" id="c10"></ul></div>
+</section>
+<div class="gate no" id="gate">
+  <div class="g1">まだ押すな</div>
+  <div class="gm" id="gmsg">上のチェックが全部そろって、赤がゼロになったら、ここが緑に変わります。</div>
+</div>
+</div>
+<footer>
+  検出は文字のパターンによる機械判定です。すべてを拾えるわけではありません。<br>
+  このキットは本を作る手順の道具です。医療・心理・法律の助言ではありません。診断や治療に触れる章は、専門職の確認を取ってください。<br>
+  価格、ロイヤリティ、印刷コスト、KENPは撮影時点（2026-08-26台本）。出す前に kdp.amazon.co.jp のヘルプで最新を確認してください。<br>
+  このページは通信しません。入力は端末から出ません。
+</footer>
+</div>
+<div class="toast" id="toast">コピーしました</div>
+<script>
+var JOBS=[
+["支援の現場","フリースクール運営","学校に行かない子の昼間を、毎日預かっている。親の最初の相談を一番多く聞いている"],
+["支援の現場","フリースクールスタッフ","子どもが動き出す前のサインを、横で見ている"],
+["支援の現場","教育支援センター（適応指導教室）","学校と家のあいだ。出席扱いと戻り方の実際を知っている"],
+["支援の現場","訪問支援員（アウトリーチ）","家から出られない子の部屋の前まで行っている。最初の一言が本になる"],
+["支援の現場","不登校専門の家庭教師","勉強の遅れと、勉強より先に要るものの順番"],
+["支援の現場","通信制高校・サポート校の職員","中3の親が一番知りたい進路の内側"],
+["支援の現場","塾講師（不登校生担当）","学力の穴の埋め方と、通い続けられる条件"],
+["支援の現場","居場所・子ども食堂の運営","学校以外で大人と話せる場所。来なくなる理由も知っている"],
+["学校","担任教師","連絡の頻度、家庭訪問、プリントの渡し方。正解が誰にも教わらない"],
+["学校","養護教諭（保健室）","保健室登校と、教室に戻る前の段階"],
+["学校","スクールカウンセラー","子どもと親と先生の三方から話を聞いている"],
+["学校","スクールソーシャルワーカー","家庭の事情と制度をつなぐ。窓口の使い方"],
+["学校","生徒指導・教育相談担当","校内の支援会議。学校の中で何が決まっているか"],
+["学校","校長・教頭（管理職）","学校として出席扱いや別室をどう判断しているか"],
+["医療・福祉","臨床心理士・公認心理師","面接の中で親子に何を聞いているか"],
+["医療・福祉","児童精神科・思春期外来のスタッフ","受診のタイミングと、受診で分かること・分からないこと"],
+["医療・福祉","小児科（起立性調節障害など）","朝起きられない体の話。親が誤解しやすいところ"],
+["医療・福祉","放課後等デイサービス","特性のある子の居場所と、学校との連携"],
+["医療・福祉","子ども家庭支援・相談窓口","相談に来る親が最初に言う言葉。つなぎ先の選び方"],
+["家庭・当事者","不登校の子の母親","最初の朝から今日までの順番。渦中の親にしか書けない"],
+["家庭・当事者","不登校の子の父親","母親任せにしない関わり方。父親向けの本は少ない"],
+["家庭・当事者","元不登校の本人","あのとき大人に言われて楽だったこと、苦しかったこと"],
+["家庭・当事者","親の会の運営","何十組もの親の「最初の3ヶ月」を聞いてきた"],
+["家庭・当事者","不登校の子の祖父母","口を出さずに支える距離感"],
+["家庭・当事者","不登校の子のきょうだい","家の中で後回しにされた側から見えたこと"]
+];
+var THEMES=[
+{n:"不登校の最初の2週間",sub:"一番検索される時期。親が一番迷う",kw:"不登校 始まり 親 対応"},
+{n:"朝の声かけ　言っていいこと・言わないこと",sub:"毎朝の5分が本になる",kw:"不登校 朝 声かけ"},
+{n:"担任・学校との連絡のしかた",sub:"揉める前に読まれる本",kw:"不登校 学校 連絡 担任"},
+{n:"昼夜逆転とゲームとの付き合い方",sub:"親の相談で一番多い困りごと",kw:"不登校 昼夜逆転 ゲーム"},
+{n:"学校以外の居場所の選び方",sub:"フリースクール・教育支援センター・オンライン",kw:"フリースクール 居場所 選び方"},
+{n:"出席扱いと成績・内申の仕組み",sub:"知らないと損をする制度の本",kw:"不登校 出席扱い 内申"},
+{n:"高校進学の選択肢",sub:"通信制・定時制・サポート校。中2中3の親が買う",kw:"不登校 高校 通信制 進路"},
+{n:"行き渋り・五月雨登校の時期",sub:"休むか行くかの境目",kw:"行き渋り 五月雨登校 対応"},
+{n:"きょうだいへの対応",sub:"後回しになる側の本",kw:"不登校 きょうだい 兄弟"},
+{n:"親が倒れないための休み方",sub:"子どもより先に親が折れる",kw:"不登校 親 疲れた 休む"},
+{n:"父親にできること",sub:"夫婦で温度差があるときの本",kw:"不登校 父親 夫婦"},
+{n:"相談先の使い方",sub:"スクールカウンセラー・教育相談・医療の順番",kw:"不登校 相談 どこに"},
+{n:"再登校をゴールにしない関わり方",sub:"長期化した家庭が読む本",kw:"不登校 長期 ゴール 関わり方"},
+{n:"担任が最初の1ヶ月でできること",sub:"買うのは先生",kw:"不登校 担任 教師 対応"},
+{n:"元不登校の子が大人になって言うこと",sub:"その後を知りたい親へ",kw:"不登校 その後 大人"}
+];
+var RULES=[
+{id:"hype",sev:"r",label:"煽り",re:/(?:必ず|誰でも|絶対|完全版|神本|神メソッド|月収|放置|スマホだけで|稼げる)/g},
+{id:"promise",sev:"r",label:"約束・断定",re:/(?:治る|治す|治せる|完治|劇的|[0-9０-９一二三四五六七八九十]+(?:日|週間|ヶ月|か月)で(?:再登校|登校|解決|改善)|100%|１００％|再登校率)/g},
+{id:"roma",sev:"r",label:"ローマ字の記号",re:/(?:[A-Za-z][A-Za-z0-9 \-]*[.,()（）．，])/g},
+{id:"url",sev:"r",label:"ロゴ・URL",re:/(?:https?:\/\/|www\.|\.com|\.co\.jp|ロゴ)/gi},
+{id:"ident",sev:"y",label:"子ども・学校が特定されそう",re:/(?:[一-龥ぁ-んァ-ヶ]{1,6}(?:小学校|中学校|高等学校)|[一-龥ぁ-んァ-ヶ]{1,4}(?:くん|ちゃん)|実名|本名)/g},
+{id:"medical",sev:"y",label:"診断・薬",re:/(?:診断|服薬|薬|発達障害|ADHD|ASD|自閉|うつ|起立性調節障害|HSP)/g},
+{id:"blame",sev:"y",label:"責める言葉",re:/(?:甘え|怠け|わがまま|親のせい|育て方)/g},
+{id:"rights",sev:"y",label:"権利・他人の名前っぽい",re:/(?:著作権者でない|他人の経験|実在の)/g},
+{id:"cover",sev:"y",label:"表紙に入れてはいけないもの",re:/(?:QR|二次元|顔写真|アイコン)/g}
+];
+var CHK8=[
+["カスタム指示とメモリをOFFにした","設定 → パーソナライズ。切らないと再現できない"],
+["送信は矢印ボタン。Enterは使っていない","長文は途中で送られる"],
+["押したのはマイク。青い丸は押していない","青い丸は会話モード。工程が飛ぶ"],
+["貼る3の「補った箇所」を確認した","言っていない経験が載っていたら消す"],
+["子ども・家庭・学校が特定できる情報を消した","名前、学校名、地域、年度、珍しい出来事の組み合わせ。本人が読んで分かる形はNG"],
+["診断・薬・治療の話を断定していない","医療職でなければ「受診先で確認を」で止める"],
+["親や子どもを責める書き方になっていない","「甘え」「親のせい」と読める文が無いか。読むのは渦中の親"],
+["タイトルのフリガナはカタカナ／ローマ字に括弧・ピリオド・コンマが無い","日本語タイトルだと必須。この3つは使えない"],
+["表紙は題名と著者名だけ","子どもの写真、ロゴ、URL、実在の人名を入れない"],
+["プレビューアーで本として開いて見た","見出しの崩れと変な改行"]
+];
+var CHK10=[
+["KDPセレクトにチェックした","読み放題に載る。15冊積む前提なら入れる"],
+["出版地域はすべての地域（全世界）","13カ国。翻訳はしない"],
+["権利は「私は著作権者であり」","喋った自分の経験ならこれ"],
+["事例は本人・保護者の同意を取ったか、特定できない形に作り替えた","守秘義務のある職種は、職場の規程も確認"],
+["露骨な性的表現は「いいえ」",""],
+["主なマーケットプレイスは Amazon.co.jp","ここで決めた価格が他12カ国の基準"],
+["ロイヤリティは70%。電子は1,200円","250〜1,650の外だと70%が選べない"],
+["紙は1,500円。電子は紙より20%以上安い","紙1,500の80%＝1,200が電子の上限。紙は999を割ると50%"],
+["押す前の3点：誤字／権利／価格","タイトルは出版後に直せない"],
+["「Kindle 本を出版」は自分で押す","審査は最大72時間。初月の収入はゼロで見ておく。KENPは翌月15日頃に確定"]
+];
+var PER=26734;
+var $=function(s){return document.querySelector(s)};
+var jsel=$("#job"), tsel=$("#theme"), jfree=$("#jobfree");
+(function(){
+  var g="",og=null;
+  JOBS.forEach(function(j,i){
+    if(j[0]!==g){g=j[0];og=document.createElement("optgroup");og.label=g;jsel.appendChild(og);}
+    var o=document.createElement("option");o.value=i;o.textContent=j[1];og.appendChild(o);
+  });
+  THEMES.forEach(function(t,i){var o=document.createElement("option");o.value=i;o.textContent=(i+1)+". "+t.n;tsel.appendChild(o)});
+})();
+function J(){return jfree.value.trim()?jfree.value.trim():JOBS[jsel.value][1]}
+function D(){var f=jfree.value.trim(); return f?f+"として見てきた不登校の内側。外からは見えない":JOBS[jsel.value][2]}
+function TH(){return THEMES[tsel.value]}
+function yen(n){return Math.round(n).toLocaleString("ja-JP")}
+function pad2(n){return n<10?"0"+n:""+n}
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+function eFromWant(w){return Math.max(250, Math.min(1650, Math.round((w+1)/0.7)))}
+function eNet(p){return Math.round(p*0.7 - 1)}
+document.querySelectorAll(".tab").forEach(function(t){t.onclick=function(){go(t.dataset.t)}});
+document.addEventListener("click",function(e){var b=e.target.closest("button[data-go]"); if(b) go(b.dataset.go)});
+function go(n){
+  document.querySelectorAll(".tab").forEach(function(x){x.classList.toggle("on",x.dataset.t===n)});
+  document.querySelectorAll(".panel").forEach(function(x){x.classList.toggle("on",x.id==="t"+n)});
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+function P1(){
+  return "あなたは、不登校に関わってきた無名の個人が、自分の経験だけを元に Kindle 本を出すのを支援する編集者です。\n\n"+
+  "【前提】\n"+
+  "私は文章を書いた経験がありません。本を出した実績もありません。\n"+
+  "自分では「専門家と名乗れるほどの経験はない」と思っています。\n"+
+  "不登校との関わり方（立場）は「"+J()+"」です。いま作る1冊の仮の軸は「"+TH().n+"」です。"+D()+"。\n"+
+  "読む人の多くは、いま子どもが学校に行けなくなって困っている保護者、または不登校の子を受け持つ先生です。\n\n"+
+  "【やること】\n"+
+  "私に質問をしてください。\n"+
+  "目的は、私が「当たり前すぎて価値がないと思っている経験」を、外から見つけ出すことです。\n\n"+
+  "【質問の条件】\n"+
+  "・1回に10問以内。番号を振ってください。\n"+
+  "・答えが一言で済む形にしてください。長い説明を求めないでください。\n"+
+  "・資格・肩書き・成功例の数は聞かないでください。\n"+
+  "・代わりに、次のようなことを聞いてください：\n"+
+  "  不登校に関わって何年か／これまで関わった子どもや家庭のおおよその数／\n"+
+  "  最初の相談で保護者が一番よく口にする言葉／保護者が最初の1ヶ月でやってしまいがちなこと／\n"+
+  "  子どもが少し動き出す前によく見えるサイン／学校とのやりとりで揉めやすいところ／\n"+
+  "  自分が考え方を変えたきっかけ／周りから一番よく聞かれる質問／\n"+
+  "  人に説明したときに「知らなかった」と言われたこと\n\n"+
+  "【禁止】\n"+
+  "・子ども・家庭・学校の実名や、地域・年度など個人の特定につながる詳細を聞くこと\n"+
+  "・「あなたの強みは何ですか」のような、私が答えられない抽象的な質問\n"+
+  "・励まし、称賛、前置き。質問だけを出してください。";
+}
+function P2(){
+  return "私の答えを踏まえて、不登校をテーマにした Kindle 本のネタ候補を3つ出してください。\n"+
+  "私の立場は「"+J()+"」。いま作る1冊の軸は「"+TH().n+"」。\n\n"+
+  "【各候補に必ず付けること】\n"+
+  "1. 本のタイトル案（日本語・20文字前後）\n"+
+  "2. 誰が読むのか（1行。子どもの学年、不登校になってからの期間、読む人の立場を含めること）\n"+
+  "3. その人が、これを読まないとどう困るのか（1行）\n"+
+  "4. なぜ私がこれを書けるのか（私の答えの中から、根拠を1つ引用すること）\n"+
+  "5. その人が Amazon の検索窓に打つと思われる言葉を3つ\n\n"+
+  "【選ぶ基準】\n"+
+  "・「私が詳しいこと」ではなく「読む人がいま困っていること」を軸にしてください\n"+
+  "・「必ず学校に戻れる」「治る」のような約束が必要になるテーマは外してください\n"+
+  "・すでに専門家が何冊も出している一般論は外し、私の立場からしか見えない部分を優先してください\n"+
+  "・私の経験の中で、年数がいちばん長いものを優先してください\n\n"+
+  "【最後に】\n"+
+  "3つのうち、どれを最初の1冊にすべきか、理由を2行で書いてください。\n"+
+  "そして選んだ1冊の章立てを、8章分、各章のタイトルだけ出してください。";
+}
+function P3(){
+  return "いま私が話した内容を、本の原稿の形に整えてください。\n"+
+  "私の立場は「"+J()+"」。いま作る1冊は「"+TH().n+"」。\n\n"+
+  "【条件】\n"+
+  "・話し言葉を書き言葉に直してください。「えーと」「あの」「まあ」は消してください。\n"+
+  "・内容を足さないでください。私が言っていないことを書かないでください。\n"+
+  "・私が言い間違えた箇所は、前後から判断して直してください。\n"+
+  "・1段落は3〜4行にしてください。\n"+
+  "・見出しを2〜3個入れてください。\n"+
+  "・数字が出てきた箇所は、そのままの数字を残してください。\n"+
+  "・敬体（です・ます）で統一してください。\n"+
+  "・子どもや家庭の事例は、名前・学校名・地域・年度を伏せ、「ある中学2年生の女の子」のように一般化してください。\n"+
+  "・診断名・薬・治療の効果について、私が言っていない断定を加えないでください。\n"+
+  "・保護者や子どもを責めていると読める表現は、意味を変えずに言い換えてください。\n\n"+
+  "【最後に必ず】\n"+
+  "・私が言っていないのに補った箇所があれば、リストで報告してください。\n"+
+  "・個人が特定されるおそれのある箇所があれば、リストで報告してください。\n"+
+  "・話が飛んでいて意味が通らない箇所があれば、\n"+
+  "　「ここを補足で喋ってください」と指摘してください。";
+}
+function P4(){
+  return "この原稿を Kindle で出版します。商品ページに使う要素を作ってください。\n"+
+  "テーマは不登校。私の立場は「"+J()+"」。いま作る1冊は「"+TH().n+"」。\n\n"+
+  "【出すもの】\n"+
+  "1. 内容紹介（Amazon の商品説明に貼るもの・400字前後）\n"+
+  "   ・冒頭2行で「誰の、どの困りごとの本か」が分かるようにしてください\n"+
+  "   ・煽らないでください。「必ず」「誰でも」「絶対」は使わないでください\n"+
+  "   ・「治る」「学校に戻れる」「〇日で」のような結果の約束はしないでください\n"+
+  "   ・読む保護者を責める書き方、不安をあおる書き方はしないでください\n"+
+  "2. キーワードを7つ\n"+
+  "   ・1つ50文字以内\n"+
+  "   ・実際に Amazon の検索窓に打たれる言葉にしてください\n"+
+  "   ・タイトルに入っている言葉と重複させないでください\n"+
+  "3. カテゴリー候補を3つ\n"+
+  "4. タイトル案を3つ（各20文字前後）。\n"+
+  "   それぞれに、フリガナ（カタカナ）とローマ字表記を付けてください。\n"+
+  "   ローマ字に、括弧・ピリオド・コンマは使わないでください。";
+}
+function buildShelf(){
+  var sh=$("#shelf"); sh.innerHTML="";
+  var cur=+tsel.value;
+  THEMES.forEach(function(th,i){
+    var d=document.createElement("div");
+    d.className="book"+(i===cur?" on":"");
+    d.innerHTML='<div class="bn">'+pad2(i+1)+' 冊目</div><div class="bt">'+esc(J())+' / '+th.n+'</div>'+
+      '<div class="bk">'+th.kw+'</div><div class="bp">'+(i===cur?"いま この本を作っています":th.sub)+'</div>';
+    d.onclick=function(){tsel.value=i;renderAll();window.scrollTo({top:0,behavior:"smooth"});};
+    sh.appendChild(d);
+  });
+}
+function step1(){
+  var w=+want.value, p=eFromWant(w), n=eNet(p);
+  $("#wantLbl").textContent=yen(w)+"円";
+  $("#raw").textContent=yen(Math.round((w+1)/0.7));
+  $("#price").innerHTML=yen(p)+'<span class="u">円</span>';
+  $("#net").innerHTML=yen(n)+'<span class="u">円</span>';
+  var el=$("#band70");
+  if(p<250||p>1650){
+    el.className="verdict v-ng";
+    el.innerHTML='70% が選べません。<span class="sm">価格帯は ¥250〜¥1,650。手取りを動かして中に戻してください。</span>';
+  }else if(p>1200){
+    el.className="verdict v-mid";
+    el.innerHTML='紙1,500円の80%を超えています。<span class="sm">電子は紙より20%以上安くないと70%不可。売値は1,200円が上限です。</span>';
+  }else{
+    el.className="verdict v-ok";
+    el.innerHTML='70% が選べる位置です。<span class="sm">電子'+yen(p)+'円。手取り '+yen(n)+'円。紙は1,500円・砕木で 488円80銭。</span>';
+  }
+}
+function band(mo){
+  if(mo<=1) return ["v-ok","約2週間ぶんの手作業です。","月5万なら2冊。月5冊なら1ヶ月かからず棚に並ぶ。1冊目の目標は並ぶこと。","1ヶ月"];
+  if(mo<=3) return ["v-mid","3ヶ月です。","初月はゼロ。2ヶ月目で8〜18万。3ヶ月目に15冊で30〜40万。72時間とKENPの翌月15日がある。","3ヶ月"];
+  return ["v-ng","3ヶ月では届きません。","目標を下げるか、1冊あたり月26,734円の内訳を先に見てください。15冊で401,012円が標準モデルです。","遠い"];
+}
+function step2(){
+  var g=+goal.value;
+  var books=Math.ceil(g/PER), mo=books/5;
+  $("#goalLbl").textContent=(g>=10000?(Math.round(g/10000*10)/10)+"万円":yen(g)+"円");
+  $("#needBooks").innerHTML=yen(books)+'<span class="u">冊</span>';
+  var moTxt=(Math.round(mo*10)/10).toString();
+  $("#needMo").innerHTML=moTxt+'<span class="u">ヶ月</span>';
+  $("#perBook").innerHTML=yen(PER)+'<span class="u">円</span>';
+  var v=band(mo), el=$("#verdict");
+  el.className="verdict "+v[0];
+  el.innerHTML=v[1]+'<span class="sm">'+v[2]+'</span>';
+}
+function buildForm(){
+  var box=$("#titles"); box.innerHTML="";
+  var ts=[
+    "不登校　"+TH().n,
+    J()+"が見てきた不登校の"+TH().n,
+    "不登校の子の親が最初に読む本　"+J()+"の視点から"
+  ];
+  ts.forEach(function(t,i){
+    var d=document.createElement("div"); d.className="ttl";
+    d.innerHTML='<div class="n">案'+(i+1)+'</div><div class="t">'+esc(t)+'</div>';
+    var b=document.createElement("button"); b.textContent="コピー";
+    b.onclick=function(){copy(t,function(){say("タイトルをコピーしました")})};
+    d.appendChild(b); box.appendChild(d);
+  });
+  $("#desc").textContent="子どもが学校に行けなくなって、何から手をつければいいか分からない保護者の方へ。"+
+    J()+"として不登校の子どもと家族のそばにいた経験から、「"+TH().n+"」を、喋った言葉のまま本にしました。"+
+    "学校に戻すための方法や、結果の約束は書いていません。登場する事例は、個人が特定されないよう内容を変えています。"+
+    "いま困っている順番で読めるように書いてあります。";
+}
+$("#check").oninput=function(){
+  var v=this.value, f=$("#flag");
+  if(!v.trim()){f.innerHTML="";f.className="";return}
+  var hit=[];
+  RULES.forEach(function(r){
+    if(r.sev!=="r") return;
+    var m=v.match(new RegExp(r.re.source,"g"+(r.re.ignoreCase?"i":"")));
+    if(m) m.forEach(function(x){if(hit.indexOf(x)<0)hit.push(x)});
+  });
+  if(hit.length){f.className="flag bad";f.textContent="この言葉を外してください → "+hit.join(" / ");}
+  else{f.className="flag good";f.textContent="危ない言葉は入っていません。あとは「不登校」と、読む人（親・先生）の言葉が入っているかどうかです。";}
+};
+var want=$("#want"), goal=$("#goal");
+want.oninput=step1; goal.oninput=step2;
+function buildChk(el,arr,barId){
+  var ul=$(el);
+  arr.forEach(function(a){
+    var li=document.createElement("li");
+    li.innerHTML='<label><input type="checkbox"><span class="wr"><span class="t">'+a[0]+'</span><span class="d">'+(a[1]||"")+'</span></span></label>';
+    ul.appendChild(li);
+  });
+  ul.addEventListener("change",function(){progress(el,barId);gate()});
+  progress(el,barId);
+}
+function progress(el,barId){
+  var b=$(el).querySelectorAll("input"), n=0;
+  Array.prototype.forEach.call(b,function(x){if(x.checked)n++});
+  $("#"+barId).style.width=(n/b.length*100)+"%";
+  return n===b.length;
+}
+buildChk("#c8",CHK8,"bar1");
+buildChk("#c10",CHK10,"bar2");
+var src=$("#src"), out=$("#out"), chips=$("#chips"), redCount=0, lastRed=[];
+function scan(){
+  var t=src.value;
+  if(!t.trim()){
+    out.className="result empty"; out.textContent="貼ると、危ない箇所に色が付きます。赤は消す。黄色は目で見る。";
+    chips.innerHTML='<span class="chip">まだ何も貼られていません</span>';
+    redCount=0;lastRed=[];gate();return;
+  }
+  var hits=[];
+  RULES.forEach(function(r){
+    r.re.lastIndex=0;var m;
+    while((m=r.re.exec(t))!==null){
+      if(!m[0].length){r.re.lastIndex++;continue}
+      hits.push({s:m.index,e:m.index+m[0].length,sev:r.sev,id:r.id,label:r.label,txt:m[0]});
+    }
+  });
+  hits.sort(function(a,b){return a.s-b.s|| (a.sev==="r"?-1:1)});
+  var keep=[],end=-1,counts={};
+  hits.forEach(function(h){if(h.s>=end){keep.push(h);end=h.e;counts[h.id]=(counts[h.id]||0)+1}});
+  redCount=0;lastRed=[];
+  var html="",p=0;
+  keep.forEach(function(h){
+    html+=esc(t.slice(p,h.s))+'<mark class="'+h.sev+'" title="'+h.label+'">'+esc(h.txt)+'</mark>';
+    p=h.e; if(h.sev==="r"){redCount++;lastRed.push(h)}
+  });
+  html+=esc(t.slice(p));
+  out.className="result"; out.innerHTML=html;
+  var cs="", reds=RULES.filter(function(r){return r.sev==="r"&&counts[r.id]}), yls=RULES.filter(function(r){return r.sev==="y"&&counts[r.id]});
+  if(!reds.length&&!yls.length) cs='<span class="chip" style="background:rgba(58,208,127,.12);border-color:rgba(58,208,127,.4);color:#8ef0bb">検出なし</span>';
+  else{
+    reds.forEach(function(r){cs+='<span class="chip red">'+r.label+' '+counts[r.id]+'</span>'});
+    yls.forEach(function(r){cs+='<span class="chip yl">'+r.label+' '+counts[r.id]+'</span>'});
+  }
+  chips.innerHTML=cs; gate();
+}
+src.addEventListener("input",scan);
+$("#clear").onclick=function(){src.value="";scan();src.focus()};
+$("#redact").onclick=function(){
+  var t=src.value;
+  if(!t.trim()){say("先に本文を貼ってください");return}
+  lastRed.slice().sort(function(a,b){return b.s-a.s}).forEach(function(h){t=t.slice(0,h.s)+"〇〇〇"+t.slice(h.e)});
+  copy(t,function(){say(redCount?redCount+"箇所を伏字にしてコピーしました":"赤はありませんでした")});
+};
+function gate(){
+  var a=progress("#c8","bar1"), b=progress("#c10","bar2"), g=$("#gate");
+  var pasted=src.value.trim().length>0;
+  if(a&&b&&redCount===0&&pasted){
+    g.className="gate yes"; g.querySelector(".g1").textContent="押していい";
+    $("#gmsg").textContent="KDPの「Kindle 本を出版」。赤がゼロです。押すのは自分。誤字／権利／価格、そして事例の匿名化を最後にもう一度。";
+  }else{
+    g.className="gate no"; g.querySelector(".g1").textContent="まだ押すな";
+    var r=[];
+    if(!pasted) r.push("本文をまだ貼っていません");
+    if(redCount>0) r.push("赤が"+redCount+"箇所 残っています");
+    if(!a) r.push("目でやる10個が終わっていません");
+    if(!b) r.push("規約のゲートが終わっていません");
+    $("#gmsg").textContent=r.join("／");
+  }
+}
+var toast=$("#toast");
+function say(m){toast.textContent=m;toast.classList.add("on");setTimeout(function(){toast.classList.remove("on")},1800)}
+function copy(t,cb){
+  function fb(){var a=document.createElement("textarea");a.value=t;a.style.position="fixed";a.style.opacity="0";
+    document.body.appendChild(a);a.select();
+    try{document.execCommand("copy");cb()}catch(e){say("長押しで選択してください")}
+    document.body.removeChild(a)}
+  if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(t).then(cb,fb)}else{fb()}
+}
+document.addEventListener("click",function(e){
+  var b=e.target.closest("button"); if(!b) return;
+  if(b.dataset.c){
+    var id=b.dataset.c;
+    copy($("#"+id).textContent,function(){
+      say("コピーしました"); b.classList.add("copied"); var o=b.textContent; b.textContent="コピー済み";
+      setTimeout(function(){b.classList.remove("copied");b.textContent=o},2200);
+      if(id==="p1") $("#c2").classList.remove("locked");
+      if(id==="p2") $("#c3").classList.remove("locked");
+      if(id==="p3") $("#c4").classList.remove("locked");
+    });
+  }
+  if(b.dataset.v){
+    copy($("#"+b.dataset.v).textContent.split("\n").slice(0,2).join("\n"), function(){say("頭の2行だけ。ここを声で入れてください")});
+  }
+});
+function renderAll(){
+  $("#ro").innerHTML='いまの1冊：<b>'+esc(J())+'</b> ／ '+TH().n+'。月5冊。1冊目は棚に並ぶこと。<br>'+esc(D());
+  $("#p1").textContent=P1(); $("#p2").textContent=P2(); $("#p3").textContent=P3(); $("#p4").textContent=P4();
+  buildShelf(); buildForm();
+}
+jsel.onchange=function(){jfree.value="";renderAll()};
+tsel.onchange=renderAll; jfree.oninput=renderAll;
+renderAll(); step1(); step2(); scan();
+</script>
+</body>
+</html>
