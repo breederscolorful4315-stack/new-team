@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "喋って本キット 新規タブ",
-  "version": "1.0.0",
-  "description": "新しいタブを開くと、喋って本キット（子育て版・不登校版）が出ます。通信しません。",
+  "version": "1.1.0",
+  "description": "新しいタブを開くと、喋って本キット（子育て版・不登校版・結婚の流儀）が出ます。通信しません。",
   "chrome_url_overrides": {
     "newtab": "kosodate.html"
   },

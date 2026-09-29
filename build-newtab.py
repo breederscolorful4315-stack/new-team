@@ -5,9 +5,10 @@ import json, os, re
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(ROOT, "chrome-newtab")
-KITS = [  # (元ファイル, 出力名, 切り替え先, 切り替えリンクの文字)
-    ("kosodate-kindle-kit.html", "kosodate", "futoko", "不登校版へ →"),
-    ("futoko-kindle-kit.html", "futoko", "kosodate", "子育て版へ →"),
+KITS = [  # (元ファイル, 出力名, 切り替えリンクの文字)
+    ("kosodate-kindle-kit.html", "kosodate", "子育て版"),
+    ("futoko-kindle-kit.html", "futoko", "不登校版"),
+    ("kekkon-kindle-kit.html", "kekkon", "結婚の流儀"),
 ]
 PIN_HELP = '''<details class="pin">
           <summary>新規タブで使う</summary>
@@ -18,21 +19,21 @@ PIN_HELP = '''<details class="pin">
         </details>'''
 
 os.makedirs(OUT, exist_ok=True)
-for src, name, other, label in KITS:
+for src, name, _ in KITS:
     html = open(os.path.join(ROOT, src), encoding="utf-8").read()
     m = re.search(r"<script>\n?(.*?)</script>", html, re.S)
     assert m, src
     js = m.group(1)
     html = html[:m.start()] + '<script src="%s.js"></script>' % name + html[m.end():]
     # 拡張機能のページはインラインのスクリプトを実行できないので外に出す
-    html = re.sub(r'(<span class="badge">.*?</span>)',
-                  r'\1<a class="kitsw" href="%s.html">%s</a>' % (other, label), html, count=1)
+    links = "".join('<a class="kitsw" href="%s.html">%s →</a>' % (n, l) for _, n, l in reversed(KITS) if n != name)
+    html = re.sub(r'(<span class="badge">.*?</span>)', lambda m: m.group(1) + links, html, count=1)
     html = html.replace("</style>",
         ".kitsw{float:right;font-size:12.5px;font-weight:800;color:var(--acc);text-decoration:none;"
-        "border:1px solid var(--acc);border-radius:100px;padding:3px 11px;margin-top:1px}\n"
+        "border:1px solid var(--acc);border-radius:100px;padding:3px 11px;margin:1px 0 0 6px}\n"
         ".kitsw:hover{background:var(--acc);color:#0c0e12}\n</style>", 1)
     html, n = re.subn(r'<details class="pin">.*?</details>', PIN_HELP, html, flags=re.S)
-    if not n:  # 不登校版には固定タブの説明が無いので、保存先の行の下に足す
+    if not n:  # 不登校版・結婚の流儀版には固定タブの説明が無いので、保存先の行の下に足す
         html = html.replace('''<div class="vstat" id="vstat">未接続。いまは このブラウザの中にだけ 記憶しています。</div>
         </div>''', '''<div class="vstat" id="vstat">未接続。いまは このブラウザの中にだけ 記憶しています。</div>
         </div>
@@ -47,8 +48,8 @@ for src, name, other, label in KITS:
 manifest = {
     "manifest_version": 3,
     "name": "喋って本キット 新規タブ",
-    "version": "1.0.0",
-    "description": "新しいタブを開くと、喋って本キット（子育て版・不登校版）が出ます。通信しません。",
+    "version": "1.1.0",
+    "description": "新しいタブを開くと、喋って本キット（子育て版・不登校版・結婚の流儀）が出ます。通信しません。",
     "chrome_url_overrides": {"newtab": "kosodate.html"},
 }
 if os.path.exists(os.path.join(OUT, "icon128.png")):

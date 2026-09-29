@@ -1,6 +1,6 @@
 # 喋って本キット　新規タブ（Chrome 拡張機能）
 
-新しいタブを開くと、喋って本キット 子育て版が出ます。右上のボタンで不登校版に切り替えられます。
+新しいタブを開くと、喋って本キット 子育て版が出ます。右上のボタンで不登校版・結婚の流儀（男性専用）に切り替えられます。
 このページは通信しません。
 
 ## 入れ方（1回だけ）
@@ -22,5 +22,5 @@
 
 ## キットを直したとき
 
-キット本体（`kosodate-kindle-kit.html` / `futoko-kindle-kit.html`）を直したら、
+キット本体（`kosodate-kindle-kit.html` / `futoko-kindle-kit.html` / `kekkon-kindle-kit.html`）を直したら、
 `python3 build-newtab.py` を実行してから、`chrome://extensions` でこの拡張機能の「↻」（再読み込み）を押してください。

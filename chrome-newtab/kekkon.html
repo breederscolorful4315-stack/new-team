@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>喋って本キット 不登校版</title>
+<title>喋って本キット 結婚の流儀</title>
 <style>
 :root{
   --bg:#0c0e12; --panel:#14171d; --panel2:#1b1f27; --line:#2b313b;
@@ -186,17 +186,17 @@ details.pin b{color:var(--tx)}
 <body>
 <header>
   <div class="wrap">
-    <span class="badge">視聴者特典　不登校専門家版</span><a class="kitsw" href="kekkon.html">結婚の流儀 →</a><a class="kitsw" href="kosodate.html">子育て版 →</a>
-    <h1>喋って本キット　不登校版</h1>
-    <p class="sub">不登校との関わり方を1つ選ぶ。あとは、貼って、値段を決めて、検品を通すだけ。</p>
+    <span class="badge">視聴者特典　男性専用</span><a class="kitsw" href="futoko.html">不登校版 →</a><a class="kitsw" href="kosodate.html">子育て版 →</a>
+    <h1>喋って本キット　結婚の流儀</h1>
+    <p class="sub">結婚の流儀　男の幸せの極意（男性専用）。結婚での立場を1つ選ぶ。あとは、貼って、値段を決めて、検品を通すだけ。</p>
     <p class="byline">「今ある武器で飯を食う」／三日坊主男子『はると』のほったらかし副業　合言葉はこのページには送らない。</p>
-    <div class="privacy">このページは通信しません。保存先を選ぶと、あなたのPCの Obsidian vault に直接書き込みます。外には出ません。<br>ただし Claude に貼った内容は Anthropic に送られます。子どもの名前・学校名・地域は、喋る時点で入れないでください。</div>
+    <div class="privacy">このページは通信しません。保存先を選ぶと、あなたのPCの Obsidian vault に直接書き込みます。外には出ません。<br>ただし Claude に貼った内容は Anthropic に送られます。妻・元妻・家族・相手の名前、勤務先、地域は、喋る時点で入れないでください。</div>
     <div class="setbar">
       <div class="setcard">
         <div class="setttl">ここだけ決めれば、下の3つが全部そろいます</div>
         <div class="g2">
           <div>
-            <label class="lb">不登校との関わり方（立場）</label>
+            <label class="lb">結婚での立場</label>
             <div class="selwrap"><select id="job"></select></div>
           </div>
           <div>
@@ -206,7 +206,7 @@ details.pin b{color:var(--tx)}
         </div>
         <div style="margin-top:11px">
           <label class="lb">リストに無い立場はここに入力（任意）</label>
-          <input type="text" id="jobfree" placeholder="例：不登校の子向けオンライン教室の講師" autocomplete="off">
+          <input type="text" id="jobfree" placeholder="例：国際結婚20年目の夫" autocomplete="off">
         </div>
         <div class="readout" id="ro"></div>
         <div class="vault">
@@ -252,7 +252,7 @@ details.pin b{color:var(--tx)}
     <div class="lbl">貼る 2 ／ ネタ3つと、章立て8</div>
     <div class="pbox"><pre id="p2"></pre></div>
     <div class="btnrow"><button class="b1" data-c="p2">この文をコピー</button></div>
-    <div class="note"><b>1つしか出ない時は「あと2つ」。12章になったら「8章にまとめて」。</b>選ぶ軸は「詳しいこと」ではなく「読む人（親・先生・本人）が今困っていること」。</div>
+    <div class="note"><b>1つしか出ない時は「あと2つ」。12章になったら「8章にまとめて」。</b>選ぶ軸は「詳しいこと」ではなく「読む男性（夫・これから結婚する人）が今困っていること」。</div>
     <div class="lbl2">Claude の返事を貼る → 02_ネタと章立て.md</div>
     <textarea class="ans" id="a2" placeholder="ネタ3つと、8章の章立てを貼り付け"></textarea>
     <div class="btnrow"><button class="b2" data-save="a2">いま保存</button></div>
@@ -261,7 +261,7 @@ details.pin b{color:var(--tx)}
     <div class="lbl">貼る 3 ／ 喋った言葉を、原稿にする</div>
     <div class="pbox"><pre id="p3"></pre></div>
     <div class="btnrow"><button class="b1" data-c="p3">この文をコピー</button></div>
-    <div class="note warn"><b>入力欄のマイク（音声入力）で喋る。音声モード（Claudeと声で会話するボタン）は押すな。</b>工程が飛ぶ。切れてもそこで送って、続きを足せ。8章分、これを繰り返す。<br><b>事例を喋るときは「ある小学5年生の男の子」まで。</b>名前・学校名・地域・時期の組み合わせで、本人には分かってしまう。</div>
+    <div class="note warn"><b>入力欄のマイク（音声入力）で喋る。音声モード（Claudeと声で会話するボタン）は押すな。</b>工程が飛ぶ。切れてもそこで送って、続きを足せ。8章分、これを繰り返す。<br><b>夫婦の話を喋るときは「結婚12年目のある夫婦」まで。</b>名前・勤務先・地域・時期の組み合わせで、妻には分かってしまう。</div>
     <div class="chaprow">
       <div class="selwrap"><select id="chap"></select></div>
       <div class="lbl2" style="margin:0" id="chapLbl">→ 03_原稿/第1章.md</div>
@@ -288,10 +288,10 @@ details.pin b{color:var(--tx)}
     <div style="font-size:14.5px;line-height:2">
       1. claude.ai（または Claude デスクトップアプリ）。メモリと過去チャットの参照をOFF　→　新しいチャット<br>
       2. 貼る1 → 一言で答える（喋っていい） → 貼る2 → マイクで章ごとに喋る → 貼る3 → 8章繰り返す → 貼る4<br>
-      3. 返事はそのつど このキットの欄に貼り戻す。vault の Kindle/不登校/ に本ごとのフォルダができる<br>
-      4. 表紙は題名と著者名だけ。子どもの写真・ランドセル姿の実写は使わない。サイズは KDP のアップロード画面に出た数字<br>
+      3. 返事はそのつど このキットの欄に貼り戻す。vault の Kindle/結婚の流儀/ に本ごとのフォルダができる<br>
+      4. 表紙は題名と著者名だけ。夫婦や家族の実写写真は使わない。サイズは KDP のアップロード画面に出た数字<br>
       5. kdp.amazon.co.jp　本棚の上「タイトルの新規作成」→「電子書籍 (マンガ以外)」<br>
-      6. 言語は日本語。フリガナはカタカナ。サブタイトルも入れる（「不登校」「親」など検索される言葉）<br>
+      6. 言語は日本語。フリガナはカタカナ。サブタイトルも入れる（「夫婦」「夫」「結婚生活」など検索される言葉）<br>
       7. 権利は「私は著作権者であり」。性的表現は「いいえ」。主なマーケットプレイスは Amazon.co.jp<br>
       8. KDP セレクトにチェック。出版地域はすべての地域（全世界13カ国。翻訳はしない）<br>
       9. ロイヤリティ70%。電子1,200円。紙は1,500円（砕木パルプ紙）
@@ -301,7 +301,7 @@ details.pin b{color:var(--tx)}
 </section>
 <section>
   <div class="step"><div class="stepno">C</div><div class="steptitle">2冊目以降の15本は、もう決まっています</div></div>
-  <p class="hint"><b style="color:var(--tx)">3冊目で止まる理由の半分は、次に何を作るか思いつかないことです。</b>不登校の本は、読む人の「時期」で棚が分かれます。</p>
+  <p class="hint"><b style="color:var(--tx)">3冊目で止まる理由の半分は、次に何を作るか思いつかないことです。</b>結婚の本は、読む人の「結婚何年目か」で棚が分かれます。</p>
   <div class="shelf" id="shelf"></div>
 </section>
 <div class="next"><button data-go="2">値段を決める →</button></div>
@@ -335,7 +335,7 @@ details.pin b{color:var(--tx)}
       <div class="kpi"><div class="k">1冊あたり月</div><div class="v" id="perBook">26,734<span class="u">円</span></div></div>
     </div>
     <div class="verdict v-ok" id="verdict"></div>
-    <div class="note"><b>1冊目の目標は、棚に並ぶことです。</b>初月はゼロ。72時間の審査と、読み放題は翌月15日頃に確定。階段は 0 → 8〜18万 → 30〜40万。3ヶ月目の内訳は電子243,310／紙41,548／KU75,000／海外41,154。数字は標準モデルで、不登校ジャンルでの実績値ではありません。</div>
+    <div class="note"><b>1冊目の目標は、棚に並ぶことです。</b>初月はゼロ。72時間の審査と、読み放題は翌月15日頃に確定。階段は 0 → 8〜18万 → 30〜40万。3ヶ月目の内訳は電子243,310／紙41,548／KU75,000／海外41,154。数字は標準モデルで、このジャンルでの実績値ではありません。</div>
     <div class="note warn"><b>固定費は Claude の有料プラン（Pro）だけ。</b>KDP 0円。Canva 0円。月額は為替と税で変わるので、Claude の画面に出ている金額を入れる。
       <div class="costrow"><input type="number" id="cost" min="0" step="1" value="3000"><span>円／月 → 1冊の原価 <b id="costPer">600円</b>（月5冊）</span></div></div>
   </div>
@@ -374,7 +374,7 @@ details.pin b{color:var(--tx)}
     <div class="lbl" style="margin-top:18px">自分で書いたタイトルを検査する</div>
     <input type="text" id="check" placeholder="タイトルを貼ると、危ない言葉を検出します" autocomplete="off" style="margin-top:8px">
     <div id="flag"></div>
-    <div class="note warn"><b>不登校の本で一番落ちるのは「約束」です。</b>「必ず学校に戻れる」「〇日で再登校」「治る」。読む親は追い詰められている。約束した瞬間に、低評価とクレームの本になる。</div>
+    <div class="note warn"><b>結婚の本で一番落ちるのは「約束」と「決めつけ」です。</b>「必ず仲直りできる」「〇日で妻が変わる」「女はこう扱え」。約束した瞬間に低評価の本になり、決めつけは妻にも読まれる。</div>
   </div>
 </section>
 <div class="next"><button data-go="3">検品して出す →</button></div>
@@ -391,7 +391,7 @@ details.pin b{color:var(--tx)}
       <button class="b1" id="redact">赤を伏字にしてコピー</button>
       <button class="b2" id="clear">消す</button>
     </div>
-    <div class="note warn"><b>赤はゼロ。</b>煽り（必ず／誰でも／絶対／完全版／月収／放置／稼げる）。約束（治る／完治／劇的／〇日で／100%／再登校率）。ローマ字の括弧・ピリオド・コンマ。ロゴとURL。<br><b>黄色は目で見る。</b>学校名や「〇〇くん」など特定につながる言葉。診断名・薬。「甘え」「怠け」「親のせい」など責める言葉（否定する文脈なら残してよい）。原稿本文の足し算は、貼る3の「補った箇所」で潰す。</div>
+    <div class="note warn"><b>赤はゼロ。</b>煽り（必ず／誰でも／絶対／完全版／月収／放置／稼げる）。約束・操作（モテる／落とす／〇日で復縁／100%／言いなり／調教／支配する）。ローマ字の括弧・ピリオド・コンマ。ロゴとURL。<br><b>黄色は目で見る。</b>実名・勤務先など特定につながる言葉。「女は」「嫁は」などの決めつけ（否定する文脈なら残してよい）。親権・慰謝料など法律とお金。性・浮気の話題（露骨でないか）。原稿本文の足し算は、貼る3の「補った箇所」で潰す。</div>
   </div>
 </section>
 <section>
@@ -410,12 +410,12 @@ details.pin b{color:var(--tx)}
 </div>
 <footer>
   検出は文字のパターンによる機械判定です。すべてを拾えるわけではありません。<br>
-  このキットは本を作る手順の道具です。医療・心理・法律の助言ではありません。診断や治療に触れる章は、専門職の確認を取ってください。<br>
+  このキットは本を作る手順の道具です。法律・税金・心理の助言ではありません。離婚・親権・財産分与・税金に触れる章は、専門家の確認を取ってください。<br>
   価格、ロイヤリティ、印刷コスト、KENPは撮影時点（2026-08-26台本）。出す前に kdp.amazon.co.jp のヘルプで最新を確認してください。<br>
   このページは通信しません。入力は端末から出ません。
 </footer>
 </div>
 <div class="toast" id="toast">コピーしました</div>
-<script src="futoko.js"></script>
+<script src="kekkon.js"></script>
 </body>
 </html>
