@@ -158,6 +158,23 @@ footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--line);color:v
   background:var(--ok);color:#08120c;font-weight:800;font-size:14.5px;padding:12px 22px;border-radius:100px;
   opacity:0;transition:.22s;pointer-events:none;z-index:99;max-width:90vw;text-align:center}
 .toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
+.vault{margin-top:12px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.vault button{padding:11px 14px;font-size:14px}
+.vstat{font-size:12.5px;color:var(--tx2);flex:1 1 220px;line-height:1.6}
+.vstat.ok{color:#8ef0bb}
+.vstat.ng{color:#ffa9b8}
+.lbl2{font-size:12px;font-weight:800;color:var(--tx2);letter-spacing:.08em;margin-top:16px}
+textarea.ans{min-height:140px;margin-top:8px;font-size:14.5px}
+.chaprow{display:flex;gap:10px;align-items:center;margin-top:16px}
+.chaprow .selwrap{flex:0 0 150px}
+.chaprow select{padding:10px 12px;font-size:15px}
+.st{display:inline-block;font-size:11px;font-weight:800;padding:2px 9px;border-radius:100px;border:1px solid var(--line);color:var(--tx2);margin-right:6px}
+.st.go{background:rgba(255,209,102,.12);border-color:rgba(255,209,102,.45);color:#ffe0a3}
+.st.done{background:rgba(58,208,127,.12);border-color:rgba(58,208,127,.45);color:#8ef0bb}
+.costrow{display:flex;gap:10px;align-items:center;margin-top:10px}
+.costrow input{max-width:160px}
+#pubBtn{margin-top:12px;background:var(--ok);color:#08120c;display:none}
+.gate.yes #pubBtn{display:inline-block}
 </style>
 </head>
 <body>
@@ -167,7 +184,7 @@ footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--line);color:v
     <h1>喋って本キット　不登校版</h1>
     <p class="sub">不登校との関わり方を1つ選ぶ。あとは、貼って、値段を決めて、検品を通すだけ。</p>
     <p class="byline">「今ある武器で飯を食う」／三日坊主男子『はると』のほったらかし副業　合言葉はこのページには送らない。</p>
-    <div class="privacy">このページは通信しません。入力した文章は端末から一歩も出ません。機内モードでも動きます。<br>ただし ChatGPT に貼った内容は外に出ます。子どもの名前・学校名・地域は、喋る時点で入れないでください。</div>
+    <div class="privacy">このページは通信しません。保存先を選ぶと、あなたのPCの Obsidian vault に直接書き込みます。外には出ません。<br>ただし Claude に貼った内容は Anthropic に送られます。子どもの名前・学校名・地域は、喋る時点で入れないでください。</div>
     <div class="setbar">
       <div class="setcard">
         <div class="setttl">ここだけ決めれば、下の3つが全部そろいます</div>
@@ -186,6 +203,10 @@ footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--line);color:v
           <input type="text" id="jobfree" placeholder="例：不登校の子向けオンライン教室の講師" autocomplete="off">
         </div>
         <div class="readout" id="ro"></div>
+        <div class="vault">
+          <button class="b2" id="vpick">保存先（Obsidian vault）を選ぶ</button>
+          <div class="vstat" id="vstat">未接続。いまは このブラウザの中にだけ 記憶しています。</div>
+        </div>
       </div>
     </div>
   </div>
@@ -200,8 +221,8 @@ footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--line);color:v
 <div class="wrap">
 <div class="panel on" id="t1">
 <section>
-  <div class="step"><div class="stepno">A</div><div class="steptitle">4回貼る。順番どおりに。</div></div>
-  <p class="hint">ChatGPT。同じチャットの続き。上から1つずつ。前の返事が出てから次を貼る。送信は右下の矢印。Enterは禁止。</p>
+  <div class="step"><div class="stepno">A</div><div class="steptitle">4回貼る。返事はここに戻す。</div></div>
+  <p class="hint">Claude（claude.ai かアプリ）。同じチャットの続き。上から1つずつ。前の返事が出てから次を貼る。返事は下の欄に貼り戻すと、vault に自動で保存されます。送信は矢印ボタン。改行は Shift + Enter。</p>
   <div class="card">
     <div class="lbl">貼る 1 ／ 見てきたことを、外から見つけてもらう</div>
     <div class="pbox"><pre id="p1"></pre></div>
@@ -209,39 +230,58 @@ footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--line);color:v
       <button class="b1" data-c="p1">この文をコピー</button>
       <button class="b2" data-v="p1">声で入れる用（頭だけ）</button>
     </div>
-    <div class="note"><b>ここが分かれ目です。</b>画面左下のアカウント名 → 設定 → パーソナライズ。「カスタム指示」と「メモリ」をOFF。切らないと、同じ言葉で違う答えが出る。</div>
+    <div class="note"><b>ここが分かれ目です。</b>Claude の設定で「メモリ」と「過去のチャットの参照」をOFF。プロフィールの個人設定（Claudeへの指示）も空にする。切らないと、同じ言葉で違う答えが出る。メニュー名は画面で確認。</div>
+    <div class="lbl2">Claude の質問と、自分の答えを貼る → 01_質問と答え.md</div>
+    <textarea class="ans" id="a1" placeholder="Claudeの質問と、あなたの答えをまとめて貼り付け"></textarea>
+    <div class="btnrow"><button class="b2" data-save="a1">いま保存</button></div>
   </div>
   <div class="card locked" id="c2">
     <div class="lbl">貼る 2 ／ ネタ3つと、章立て8</div>
     <div class="pbox"><pre id="p2"></pre></div>
     <div class="btnrow"><button class="b1" data-c="p2">この文をコピー</button></div>
     <div class="note"><b>1つしか出ない時は「あと2つ」。12章になったら「8章にまとめて」。</b>選ぶ軸は「詳しいこと」ではなく「読む人（親・先生・本人）が今困っていること」。</div>
+    <div class="lbl2">Claude の返事を貼る → 02_ネタと章立て.md</div>
+    <textarea class="ans" id="a2" placeholder="ネタ3つと、8章の章立てを貼り付け"></textarea>
+    <div class="btnrow"><button class="b2" data-save="a2">いま保存</button></div>
   </div>
   <div class="card locked" id="c3">
     <div class="lbl">貼る 3 ／ 喋った言葉を、原稿にする</div>
     <div class="pbox"><pre id="p3"></pre></div>
     <div class="btnrow"><button class="b1" data-c="p3">この文をコピー</button></div>
-    <div class="note warn"><b>左がマイク（音声入力）。右の青い丸は押すな。</b>青い丸は会話モード。工程が飛ぶ。切れてもそこで送って、続きを足せ。8章分、これを繰り返す。<br><b>事例を喋るときは「ある小学5年生の男の子」まで。</b>名前・学校名・地域・時期の組み合わせで、本人には分かってしまう。</div>
+    <div class="note warn"><b>入力欄のマイク（音声入力）で喋る。音声モード（Claudeと声で会話するボタン）は押すな。</b>工程が飛ぶ。切れてもそこで送って、続きを足せ。8章分、これを繰り返す。<br><b>事例を喋るときは「ある小学5年生の男の子」まで。</b>名前・学校名・地域・時期の組み合わせで、本人には分かってしまう。</div>
+    <div class="chaprow">
+      <div class="selwrap"><select id="chap"></select></div>
+      <div class="lbl2" style="margin:0" id="chapLbl">→ 03_原稿/第1章.md</div>
+    </div>
+    <textarea class="ans" id="a3" placeholder="この章の原稿（Claudeが整えたもの）を貼り付け。「補った箇所」の報告は消してから"></textarea>
+    <div class="btnrow"><button class="b2" data-save="a3">いま保存</button></div>
   </div>
   <div class="card locked" id="c4">
     <div class="lbl">貼る 4 ／ 商品ページの材料</div>
     <div class="pbox"><pre id="p4"></pre></div>
     <div class="btnrow"><button class="b1" data-c="p4">この文をコピー</button></div>
     <div class="note"><b>フリガナはカタカナ。ローマ字に括弧・ピリオド・コンマは使えない。</b>日本語タイトルだとこの2つが必須。ここで止まる人が多いので、先に作らせてある。</div>
+    <div class="lbl2">Claude の返事を貼る → 04_商品ページ.md</div>
+    <textarea class="ans" id="a4" placeholder="内容紹介・キーワード・カテゴリー・タイトル＋フリガナ＋ローマ字を貼り付け"></textarea>
+    <div class="btnrow">
+      <button class="b1" id="toCheck">これを検品にかける →</button>
+      <button class="b2" data-save="a4">いま保存</button>
+    </div>
   </div>
 </section>
 <section>
-  <div class="step"><div class="stepno">B</div><div class="steptitle">ChatGPT → Canva → KDP</div></div>
+  <div class="step"><div class="stepno">B</div><div class="steptitle">Claude → キット → Canva → KDP</div></div>
   <div class="card">
     <div style="font-size:14.5px;line-height:2">
-      1. chatgpt.com　カスタム指示とメモリをOFF　→　新しいチャット（Ctrl + Shift + O）<br>
+      1. claude.ai（または Claude デスクトップアプリ）。メモリと過去チャットの参照をOFF　→　新しいチャット<br>
       2. 貼る1 → 一言で答える（喋っていい） → 貼る2 → マイクで章ごとに喋る → 貼る3 → 8章繰り返す → 貼る4<br>
-      3. 表紙は題名と著者名だけ。子どもの写真・ランドセル姿の実写は使わない。サイズは KDP のアップロード画面に出た数字<br>
-      4. kdp.amazon.co.jp　本棚の上「タイトルの新規作成」→「電子書籍 (マンガ以外)」<br>
-      5. 言語は日本語。フリガナはカタカナ。サブタイトルも入れる（「不登校」「親」など検索される言葉）<br>
-      6. 権利は「私は著作権者であり」。性的表現は「いいえ」。主なマーケットプレイスは Amazon.co.jp<br>
-      7. KDP セレクトにチェック。出版地域はすべての地域（全世界13カ国。翻訳はしない）<br>
-      8. ロイヤリティ70%。電子1,200円。紙は1,500円（砕木パルプ紙）
+      3. 返事はそのつど このキットの欄に貼り戻す。vault の Kindle/不登校/ に本ごとのフォルダができる<br>
+      4. 表紙は題名と著者名だけ。子どもの写真・ランドセル姿の実写は使わない。サイズは KDP のアップロード画面に出た数字<br>
+      5. kdp.amazon.co.jp　本棚の上「タイトルの新規作成」→「電子書籍 (マンガ以外)」<br>
+      6. 言語は日本語。フリガナはカタカナ。サブタイトルも入れる（「不登校」「親」など検索される言葉）<br>
+      7. 権利は「私は著作権者であり」。性的表現は「いいえ」。主なマーケットプレイスは Amazon.co.jp<br>
+      8. KDP セレクトにチェック。出版地域はすべての地域（全世界13カ国。翻訳はしない）<br>
+      9. ロイヤリティ70%。電子1,200円。紙は1,500円（砕木パルプ紙）
     </div>
     <div class="note warn"><b>「Kindle 本を出版」の前に3点。</b>タイトルの誤字／権利の選択／価格。出版後にタイトルは直せない。審査は最大72時間。読み放題のKENPは翌月15日頃に確定。毎日見るな。</div>
   </div>
@@ -283,7 +323,8 @@ footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--line);color:v
     </div>
     <div class="verdict v-ok" id="verdict"></div>
     <div class="note"><b>1冊目の目標は、棚に並ぶことです。</b>初月はゼロ。72時間の審査と、読み放題は翌月15日頃に確定。階段は 0 → 8〜18万 → 30〜40万。3ヶ月目の内訳は電子243,310／紙41,548／KU75,000／海外41,154。数字は標準モデルで、不登校ジャンルでの実績値ではありません。</div>
-    <div class="note warn"><b>固定費は ChatGPT 有料プラン月約3,100円だけ。</b>KDP 0円。Canva 0円。月5冊なので1冊の原価は 3,100 ÷ 5 ＝ 620円。画面の料金が違ったら同じ比率で直せ。</div>
+    <div class="note warn"><b>固定費は Claude の有料プラン（Pro）だけ。</b>KDP 0円。Canva 0円。月額は為替と税で変わるので、Claude の画面に出ている金額を入れる。
+      <div class="costrow"><input type="number" id="cost" min="0" step="1" value="3000"><span>円／月 → 1冊の原価 <b id="costPer">600円</b>（月5冊）</span></div></div>
   </div>
 </section>
 <section>
@@ -303,7 +344,7 @@ footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--line);color:v
         <tr><td>KU 1ページ</td><td>約0.5円。翌月15日頃に確定</td></tr>
         <tr><td>海外13カ国</td><td>翻訳しない。日本語のまま並ぶ</td></tr>
         <tr><td>1冊あたり月（15冊モデル）</td><td>401,012 ÷ 15 ＝ 26,734円</td></tr>
-        <tr><td>1冊の原価</td><td>3,100 ÷ 5 ＝ 620円</td></tr>
+        <tr><td>1冊の原価</td><td id="costRow">3,000 ÷ 5 ＝ 600円</td></tr>
       </tbody>
     </table></div>
     <div class="note">数字は撮影時点（2026-08-26台本）。出す前に kdp.amazon.co.jp のヘルプと価格設定画面で最新を確認してください。レビュー数からの逆算（÷2%×売値×70%）はKU混在で上振れする。</div>
@@ -330,7 +371,7 @@ footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--line);color:v
 <section>
   <div class="step"><div class="stepno">A</div><div class="steptitle">内容紹介・キーワード・タイトルを、まるごと貼る</div></div>
   <div class="card">
-    <textarea id="src" placeholder="貼る4の出力（内容紹介・キーワード・タイトル＋フリガナ＋ローマ字）を貼り付け"></textarea>
+    <textarea id="src" placeholder="貼る4の出力（内容紹介・キーワード・タイトル＋フリガナ＋ローマ字）を貼り付け。作る画面の「これを検品にかける」でも入ります → 05_検品結果.md"></textarea>
     <div class="chips" id="chips"></div>
     <div class="result empty" id="out"></div>
     <div class="btnrow">
@@ -351,6 +392,7 @@ footer{margin-top:40px;padding-top:20px;border-top:1px solid var(--line);color:v
 <div class="gate no" id="gate">
   <div class="g1">まだ押すな</div>
   <div class="gm" id="gmsg">上のチェックが全部そろって、赤がゼロになったら、ここが緑に変わります。</div>
+  <button id="pubBtn">KDPで出版した（vault に記録する）</button>
 </div>
 </div>
 <footer>
@@ -418,9 +460,9 @@ var RULES=[
 {id:"cover",sev:"y",label:"表紙に入れてはいけないもの",re:/(?:QR|二次元|顔写真|アイコン)/g}
 ];
 var CHK8=[
-["カスタム指示とメモリをOFFにした","設定 → パーソナライズ。切らないと再現できない"],
-["送信は矢印ボタン。Enterは使っていない","長文は途中で送られる"],
-["押したのはマイク。青い丸は押していない","青い丸は会話モード。工程が飛ぶ"],
+["Claude のメモリと過去チャットの参照をOFFにした","個人設定（Claudeへの指示）も空。切らないと再現できない"],
+["1冊は1つのチャットで最後まで進めた","貼る1〜4は前の返事が前提。途中で新しいチャットにしない"],
+["押したのはマイク（音声入力）。音声モードは使っていない","音声モードは会話になる。工程が飛ぶ"],
 ["貼る3の「補った箇所」を確認した","言っていない経験が載っていたら消す"],
 ["子ども・家庭・学校が特定できる情報を消した","名前、学校名、地域、年度、珍しい出来事の組み合わせ。本人が読んで分かる形はNG"],
 ["診断・薬・治療の話を断定していない","医療職でなければ「受診先で確認を」で止める"],
@@ -548,15 +590,294 @@ function P4(){
   "   それぞれに、フリガナ（カタカナ）とローマ字表記を付けてください。\n"+
   "   ローマ字に、括弧・ピリオド・コンマは使わないでください。";
 }
+/* ===== 本ごとの記憶と、Obsidian vault への保存 ===== */
+var BASE=["Kindle","不登校"];
+var LSP="futoko-kit:";
+var V={h:null, ok:false, fsa:typeof window.showDirectoryPicker==="function", written:{}, busy:false};
+var S=null, curKey=null, dirty=false, saveT=null, IDX={};
+function lsGet(k){try{var v=localStorage.getItem(LSP+k);return v?JSON.parse(v):null}catch(e){return null}}
+function lsSet(k,v){try{localStorage.setItem(LSP+k,JSON.stringify(v))}catch(e){}}
+function safe(s){return String(s).replace(/[\\\/:*?"<>|#^\[\]]/g,"").replace(/\s+/g," ").trim()}
+function bookKey(i){return pad2(i+1)+"_"+safe(THEMES[i].n)}
+function bookPath(key){return BASE.join("/")+"/"+key}
+function now(){var d=new Date();return d.getFullYear()+"-"+pad2(d.getMonth()+1)+"-"+pad2(d.getDate())+"T"+pad2(d.getHours())+":"+pad2(d.getMinutes())}
+function today(){return now().slice(0,10)}
+function newState(){return {v:1,role:"",u:0,parts:{a1:"",a2:"",a4:""},ch:{},chap:1,chk8:[],chk10:[],src:"",want:839,published:"",created:now(),updated:""}}
+function chDone(st){var n=0;for(var i=1;i<=8;i++){if(st.ch[i]&&st.ch[i].trim())n++}return n}
+function allOn(a,len){if(a.length<len)return false;for(var i=0;i<len;i++){if(!a[i])return false}return true}
+function statusOf(st){
+  if(st.published) return "出版済み";
+  if(st===S&&st.src.trim()&&redCount===0&&allOn(st.chk8,CHK8.length)&&allOn(st.chk10,CHK10.length)) return "検品済み";
+  if(st.parts.a4.trim()) return "商品ページ作成";
+  var n=chDone(st); if(n) return "原稿中";
+  if(st.parts.a2.trim()) return "章立て済み";
+  if(st.parts.a1.trim()) return "質問中";
+  return "未着手";
+}
+function summary(st){return {status:statusOf(st),ch:chDone(st),updated:st.updated||""}}
+
+/* --- IndexedDB（選んだフォルダを覚えておく） --- */
+function idb(){return new Promise(function(res,rej){try{var r=indexedDB.open("futoko-kit",1);r.onupgradeneeded=function(){r.result.createObjectStore("h")};r.onsuccess=function(){res(r.result)};r.onerror=function(){rej(r.error)}}catch(e){rej(e)}})}
+function idbSet(v){return idb().then(function(db){return new Promise(function(res){var t=db.transaction("h","readwrite");t.objectStore("h").put(v,"vault");t.oncomplete=res;t.onerror=res})}).catch(function(){})}
+function idbGet(){return idb().then(function(db){return new Promise(function(res){var t=db.transaction("h","readonly");var q=t.objectStore("h").get("vault");q.onsuccess=function(){res(q.result||null)};q.onerror=function(){res(null)}})}).catch(function(){return null})}
+
+/* --- ファイル操作 --- */
+async function subDir(dir,parts,create){
+  for(var i=0;i<parts.length;i++){
+    try{dir=await dir.getDirectoryHandle(parts[i],{create:!!create})}catch(e){if(create)throw e;return null}
+  }
+  return dir;
+}
+async function readText(dir,name){try{var fh=await dir.getFileHandle(name);return await (await fh.getFile()).text()}catch(e){return null}}
+async function writeText(dir,name,text){var fh=await dir.getFileHandle(name,{create:true});var w=await fh.createWritable();await w.write(text);await w.close()}
+function stripMd(t){
+  if(t==null) return "";
+  t=t.replace(/\r\n/g,"\n").replace(/^---\n[\s\S]*?\n---\n/,"").replace(/^\s*#[^\n]*\n\n?/,"");
+  return t.replace(/\n+$/,"");
+}
+function fmVal(v){
+  if(typeof v==="number"||typeof v==="boolean") return String(v);
+  if(v===""||v==null) return "";
+  if(/^\d{4}-\d\d-\d\d(T\d\d:\d\d)?$/.test(v)) return v;
+  return JSON.stringify(String(v));
+}
+function fm(o){
+  var s="---\n";
+  Object.keys(o).forEach(function(k){
+    var v=o[k];
+    if(Array.isArray(v)){s+=k+":\n";v.forEach(function(x){s+="  - "+x+"\n"})}
+    else{var x=fmVal(v);s+=k+":"+(x?" "+x:"")+"\n"}
+  });
+  return s+"---\n";
+}
+function readFm(t,k){var m=t&&t.match(new RegExp("^"+k+":\\s*(.*)$","m"));if(!m)return "";var v=m[1].trim();if(v.charAt(0)==='"'){try{return JSON.parse(v)}catch(e){}}return v}
+function link(key,file,label){return "[["+bookPath(key)+"/"+file+(label?"|"+label:"")+"]]"}
+
+function partMd(title,part,extra,body){
+  var o={type:"kindle-part",series:"不登校",book:curKey,part:part};
+  for(var k in extra) o[k]=extra[k];
+  o.role=S.role; o.tags=["kindle/不登校","kindle/"+part];
+  return fm(o)+"\n# "+title+"\n\n"+body+"\n";
+}
+function buildFiles(){
+  var i=+tsel.value, th=THEMES[i], f={}, st=summary(S), n=st.ch;
+  if(S.parts.a1.trim()||V.written["01_質問と答え.md"]!=null) f["01_質問と答え.md"]=partMd("質問と答え","質問",{},S.parts.a1);
+  if(S.parts.a2.trim()||V.written["02_ネタと章立て.md"]!=null) f["02_ネタと章立て.md"]=partMd("ネタと章立て","章立て",{},S.parts.a2);
+  for(var c=1;c<=8;c++){
+    var nm="03_原稿/第"+c+"章.md";
+    if((S.ch[c]&&S.ch[c].trim())||V.written[nm]!=null) f[nm]=partMd("第"+c+"章","原稿",{chapter:c},S.ch[c]||"");
+  }
+  if(S.parts.a4.trim()||V.written["04_商品ページ.md"]!=null) f["04_商品ページ.md"]=partMd("商品ページ","商品ページ",{},S.parts.a4);
+  var hasChk=S.chk8.some(Boolean)||S.chk10.some(Boolean);
+  if(S.src.trim()||hasChk||V.written["05_検品結果.md"]!=null){
+    var body="- 赤："+redCount+"箇所\n";
+    lastRed.forEach(function(h){body+="  - "+h.label+"「"+h.txt+"」\n"});
+    body+="- 判定："+(statusOf(S)==="検品済み"||S.published?"押していい":"まだ押すな")+"\n\n## 目でやる"+CHK8.length+"個\n";
+    CHK8.forEach(function(a,j){body+="- ["+(S.chk8[j]?"x":" ")+"] "+a[0]+"\n"});
+    body+="\n## 規約と公開のゲート\n";
+    CHK10.forEach(function(a,j){body+="- ["+(S.chk10[j]?"x":" ")+"] "+a[0]+"\n"});
+    body+="\n## 貼った文\n\n"+S.src;
+    f["05_検品結果.md"]=partMd("検品結果","検品",{red:redCount},body);
+  }
+  var p=eFromWant(S.want);
+  var head=fm({type:"kindle-book",series:"不登校",book_no:i+1,theme:th.n,role:S.role,status:st.status,
+    chapters_done:n,price_ebook:p,price_print:1500,published:S.published||"",created:S.created,updated:S.updated||now(),
+    tags:["kindle/不登校","kindle/book"]});
+  var b="\n# "+pad2(i+1)+" "+th.n+"\n\n> 立場："+S.role+" ／ 状態："+st.status+"（原稿 "+n+"/8章）\n> 検索語："+th.kw+"\n\n## ファイル\n";
+  b+="- "+(S.parts.a1.trim()?"✅":"⬜")+" "+link(curKey,"01_質問と答え","質問と答え")+"\n";
+  b+="- "+(S.parts.a2.trim()?"✅":"⬜")+" "+link(curKey,"02_ネタと章立て","ネタと章立て")+"\n";
+  b+="- 原稿：";
+  var cl=[];for(var c2=1;c2<=8;c2++){cl.push((S.ch[c2]&&S.ch[c2].trim()?"✅":"⬜")+link(curKey,"03_原稿/第"+c2+"章","第"+c2+"章"))}
+  b+=cl.join(" ")+"\n";
+  b+="- "+(S.parts.a4.trim()?"✅":"⬜")+" "+link(curKey,"04_商品ページ","商品ページ")+"\n";
+  b+="- "+(S.src.trim()?"✅":"⬜")+" "+link(curKey,"05_検品結果","検品結果")+"\n";
+  b+="\n## 価格\n- 電子 "+yen(p)+"円（手取り "+yen(eNet(p))+"円）／紙 1,500円\n";
+  var mem={v:1,role:S.role,u:S.u,chap:S.chap,chk8:S.chk8,chk10:S.chk10,want:S.want,published:S.published,created:S.created};
+  b+="\n## キットの記憶（編集しないでください）\n\n```kit-state\n"+JSON.stringify(mem).replace(/`/g,"\\u0060")+"\n```\n";
+  f["00_進み具合.md"]=head+b;
+  return f;
+}
+function shelfMd(){
+  var s=fm({type:"kindle-shelf",series:"不登校",updated:now(),tags:["kindle/不登校","kindle/shelf"]});
+  s+="\n# 不登校 Kindle の棚\n\n| # | 本 | 状態 | 原稿 | 更新 |\n|---|---|---|---|---|\n";
+  THEMES.forEach(function(th,i){
+    var k=bookKey(i), x=IDX[k];
+    s+="| "+pad2(i+1)+" | "+(x?"[["+bookPath(k)+"/00_進み具合\\|"+th.n+"]]":th.n)+" | "+(x?x.status:"未着手")+" | "+(x?x.ch+"/8":"")+" | "+(x&&x.updated?x.updated.replace("T"," "):"")+" |\n";
+  });
+  return s;
+}
+async function saveVault(){
+  if(!V.ok||!V.h||V.busy) return false;
+  V.busy=true;
+  try{
+    var dir=await subDir(V.h,BASE.concat([curKey]),true), files=buildFiles();
+    for(var name in files){
+      if(V.written[name]===files[name]) continue;
+      var d=dir, nm=name;
+      if(name.indexOf("/")>0){d=await subDir(dir,[name.split("/")[0]],true);nm=name.split("/")[1]}
+      await writeText(d,nm,files[name]); V.written[name]=files[name];
+    }
+    IDX[curKey]=summary(S);
+    await writeText(await subDir(V.h,BASE,true),"_棚.md",shelfMd());
+    vstat("ok","保存しました "+now().slice(11)+"　"+V.h.name+"/"+bookPath(curKey));
+    return true;
+  }catch(e){
+    try{console.warn("vault save failed",e)}catch(x){}
+    V.ok=false; vstat("ng","vault に書けませんでした。「保存先を選ぶ」から もう一度つないでください。（"+(e&&e.name||"エラー")+"）");
+    $("#vpick").textContent="vault に再接続";
+    return false;
+  }finally{V.busy=false}
+}
+async function loadFromVault(key,st){
+  var dir=await subDir(V.h,BASE.concat([key]),false);
+  if(!dir) return false;
+  var head=await readText(dir,"00_進み具合.md"), got=false;
+  if(head){
+    var m=head.match(/```kit-state\n([\s\S]*?)\n```/);
+    if(m){try{var mem=JSON.parse(m[1]);for(var k in mem) st[k]=mem[k];got=true}catch(e){}}
+    var up=readFm(head,"updated"); if(up) st.updated=up;
+    var pub=readFm(head,"published"); if(pub) st.published=pub;
+  }
+  var map={a1:"01_質問と答え.md",a2:"02_ネタと章立て.md",a4:"04_商品ページ.md"};
+  for(var a in map){var t=await readText(dir,map[a]); if(t!=null){st.parts[a]=stripMd(t);V.written[map[a]]=t;got=true}}
+  var cd=await subDir(dir,["03_原稿"],false);
+  if(cd){for(var c=1;c<=8;c++){var ct=await readText(cd,"第"+c+"章.md"); if(ct!=null){st.ch[c]=stripMd(ct);V.written["03_原稿/第"+c+"章.md"]=ct;got=true}}}
+  var r=await readText(dir,"05_検品結果.md");
+  if(r!=null){var i=r.indexOf("\n## 貼った文\n\n"); st.src=i>=0?r.slice(i+10).replace(/\n+$/,""):""; V.written["05_検品結果.md"]=r; got=true}
+  if(head) V.written["00_進み具合.md"]=head;
+  return got;
+}
+async function scanIdx(){
+  for(var i=0;i<THEMES.length;i++){
+    var k=bookKey(i), dir=await subDir(V.h,BASE.concat([k]),false);
+    if(!dir) continue;
+    var h=await readText(dir,"00_進み具合.md");
+    if(h) IDX[k]={status:readFm(h,"status")||"未着手",ch:+readFm(h,"chapters_done")||0,updated:readFm(h,"updated")};
+  }
+}
+function vstat(cls,msg){var e=$("#vstat");e.className="vstat"+(cls?" "+cls:"");e.textContent=msg}
+async function connect(h,gesture){
+  if(!h||typeof h.getDirectoryHandle!=="function") return;
+  try{
+    var perm=h.queryPermission?await h.queryPermission({mode:"readwrite"}):"granted";
+    if(perm!=="granted"&&gesture&&h.requestPermission) perm=await h.requestPermission({mode:"readwrite"});
+    if(perm!=="granted"){
+      V.h=h; $("#vpick").textContent="vault に再接続（"+h.name+"）";
+      vstat("","前回の保存先「"+h.name+"」があります。ボタンを押して、編集を許可してください。");
+      return;
+    }
+    V.h=h; V.ok=true; V.written={};
+    $("#vpick").textContent="保存先を変える";
+    if(h.name!=="jigyo-vault") vstat("","「"+h.name+"」につなぎました。jigyo-vault でなければ、選び直してください。");
+    await scanIdx();
+    var hadLocal=S&&(S.updated||"");
+    var st=newState(); st.role=S?S.role:J();
+    var got=await loadFromVault(curKey,st);
+    if(got&&(!hadLocal||(st.updated||"")>=hadLocal)){S=st;lsSet(curKey,S);applyState()}
+    else{dirty=true}
+    await flush();
+    if(V.ok) vstat("ok","接続中："+h.name+"/"+BASE.join("/")+"/　本ごとにフォルダを作って自動で保存します。");
+    buildShelf();
+  }catch(e){vstat("ng","つなげませんでした（"+(e&&e.name||"エラー")+"）。")}
+}
+$("#vpick").onclick=async function(){
+  if(!V.fsa){say("このブラウザは直接保存に非対応です。PCの Chrome か Edge で開いてください");
+    vstat("ng","このブラウザではフォルダに直接保存できません。PCの Chrome / Edge で開くか、各欄の「.mdで保存」を使ってください。");return}
+  if(V.h&&!V.ok){await connect(V.h,true);return}
+  try{
+    var h=await window.showDirectoryPicker({id:"jigyo-vault",mode:"readwrite"});
+    await idbSet(h); await connect(h,true);
+  }catch(e){if(e&&e.name!=="AbortError") vstat("ng","選べませんでした（"+e.name+"）。")}
+};
+function downloadMd(name,text){
+  var a=document.createElement("a");a.href=URL.createObjectURL(new Blob([text],{type:"text/markdown"}));
+  a.download=name;document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},500);
+}
+function touch(){
+  if(!S) return;
+  dirty=true; S.updated=now(); lsSet(curKey,S);
+  if(!V.ok) IDX[curKey]=summary(S);
+  clearTimeout(saveT); saveT=setTimeout(flush,1200);
+}
+async function flush(){
+  clearTimeout(saveT);
+  if(!dirty) return;
+  dirty=false;
+  IDX[curKey]=summary(S);
+  if(V.ok) await saveVault();
+  else if(!V.h) vstat("","未接続。いまは このブラウザの中にだけ 記憶しています（"+now().slice(11)+"）。");
+  buildShelf();
+}
+async function switchBook(i){
+  await flush();
+  curKey=bookKey(i); V.written={};
+  var st=lsGet(curKey)||newState();
+  st.parts=st.parts||{a1:"",a2:"",a4:""}; st.ch=st.ch||{};
+  if(V.ok){var vs=newState();var got=await loadFromVault(curKey,vs); if(got&&(vs.updated||"")>=(st.updated||"")) st=vs}
+  if(!st.role) st.role=J();
+  S=st; lsSet(curKey,S);
+  applyState();
+}
+function setRole(role){
+  var idx=-1; JOBS.forEach(function(j,i){if(j[1]===role)idx=i});
+  if(idx>=0){jsel.value=idx;jfree.value=""}else if(role){jfree.value=role}
+}
+function applyState(){
+  setRole(S.role);
+  $("#a1").value=S.parts.a1; $("#a2").value=S.parts.a2; $("#a4").value=S.parts.a4;
+  buildChap(); $("#a3").value=S.ch[S.chap]||"";
+  setChecks("#c8",S.chk8); setChecks("#c10",S.chk10);
+  src.value=S.src; want.value=S.want;
+  renderAll(); step1(); scan(); applyLocks();
+}
+function applyLocks(){
+  var n=chDone(S);
+  $("#c2").classList.toggle("locked",!(S.u>=1||S.parts.a1.trim()||S.parts.a2.trim()||n));
+  $("#c3").classList.toggle("locked",!(S.u>=2||S.parts.a2.trim()||n));
+  $("#c4").classList.toggle("locked",!(S.u>=3||n||S.parts.a4.trim()));
+}
+function buildChap(){
+  var sel=$("#chap"); sel.innerHTML="";
+  for(var c=1;c<=8;c++){var o=document.createElement("option");o.value=c;o.textContent="第"+c+"章"+(S.ch[c]&&S.ch[c].trim()?"　✓":"");sel.appendChild(o)}
+  sel.value=S.chap; $("#chapLbl").textContent="→ 03_原稿/第"+S.chap+"章.md（"+chDone(S)+"/8章）";
+}
+["a1","a2","a4"].forEach(function(id){$("#"+id).addEventListener("input",function(){S.parts[id]=this.value;applyLocks();touch()})});
+$("#a3").addEventListener("input",function(){
+  var had=!!(S.ch[S.chap]&&S.ch[S.chap].trim()); S.ch[S.chap]=this.value;
+  if(had!==!!this.value.trim()) buildChap();
+  applyLocks(); touch();
+});
+$("#chap").onchange=function(){S.chap=+this.value;$("#a3").value=S.ch[S.chap]||"";buildChap();touch()};
+$("#toCheck").onclick=function(){
+  if(!S.parts.a4.trim()){say("先に貼る4の返事を貼ってください");return}
+  src.value=S.parts.a4; S.src=src.value; scan(); touch(); go("3");
+};
+document.addEventListener("click",function(e){
+  var b=e.target.closest("button[data-save]"); if(!b) return;
+  if(V.ok){dirty=true;flush().then(function(){say("vault に保存しました")});return}
+  if(V.fsa){say("先に「保存先（Obsidian vault）を選ぶ」を押してください");window.scrollTo({top:0,behavior:"smooth"});return}
+  var f=buildFiles(), id=b.dataset.save;
+  var name=id==="a1"?"01_質問と答え.md":id==="a2"?"02_ネタと章立て.md":id==="a4"?"04_商品ページ.md":"03_原稿/第"+S.chap+"章.md";
+  if(!f[name]){say("まだ何も貼られていません");return}
+  downloadMd(curKey+"_"+name.replace("03_原稿/",""),f[name]); say(".md をダウンロードしました");
+});
+$("#pubBtn").onclick=function(){
+  if(S.published){say("出版済みとして記録されています（"+S.published+"）");return}
+  S.published=today(); touch(); flush(); gate(); say("出版済みとして記録しました");
+};
+
+/* ===== 画面 ===== */
 function buildShelf(){
   var sh=$("#shelf"); sh.innerHTML="";
   var cur=+tsel.value;
   THEMES.forEach(function(th,i){
+    var k=bookKey(i), x=IDX[k]||(lsGet(k)?summary(lsGet(k)):null);
+    var stt=x?x.status:"未着手", cls=stt==="出版済み"?"done":stt==="未着手"?"":"go";
     var d=document.createElement("div");
     d.className="book"+(i===cur?" on":"");
-    d.innerHTML='<div class="bn">'+pad2(i+1)+' 冊目</div><div class="bt">'+esc(J())+' / '+th.n+'</div>'+
-      '<div class="bk">'+th.kw+'</div><div class="bp">'+(i===cur?"いま この本を作っています":th.sub)+'</div>';
-    d.onclick=function(){tsel.value=i;renderAll();window.scrollTo({top:0,behavior:"smooth"});};
+    d.innerHTML='<div class="bn">'+pad2(i+1)+' 冊目</div><div class="bt">'+th.n+'</div>'+
+      '<div class="bk">'+th.kw+'</div><div class="bp"><span class="st '+cls+'">'+stt+(x&&x.ch&&stt!=="出版済み"?" "+x.ch+"/8":"")+'</span>'+(i===cur?"いま この本を作っています":th.sub)+'</div>';
+    d.onclick=function(){tsel.value=i;switchBook(i);window.scrollTo({top:0,behavior:"smooth"});};
     sh.appendChild(d);
   });
 }
@@ -595,6 +916,11 @@ function step2(){
   el.className="verdict "+v[0];
   el.innerHTML=v[1]+'<span class="sm">'+v[2]+'</span>';
 }
+function costCalc(){
+  var c=Math.max(0,+$("#cost").value||0), per=Math.round(c/5);
+  $("#costPer").textContent=yen(per)+"円";
+  $("#costRow").textContent=yen(c)+" ÷ 5 ＝ "+yen(per)+"円";
+}
 function buildForm(){
   var box=$("#titles"); box.innerHTML="";
   var ts=[
@@ -627,16 +953,24 @@ $("#check").oninput=function(){
   else{f.className="flag good";f.textContent="危ない言葉は入っていません。あとは「不登校」と、読む人（親・先生）の言葉が入っているかどうかです。";}
 };
 var want=$("#want"), goal=$("#goal");
-want.oninput=step1; goal.oninput=step2;
-function buildChk(el,arr,barId){
+want.oninput=function(){step1();if(S){S.want=+want.value;touch()}};
+goal.oninput=function(){step2();lsSet("goal",+goal.value)};
+$("#cost").oninput=function(){costCalc();lsSet("cost",+this.value)};
+function buildChk(el,arr,barId,key){
   var ul=$(el);
   arr.forEach(function(a){
     var li=document.createElement("li");
     li.innerHTML='<label><input type="checkbox"><span class="wr"><span class="t">'+a[0]+'</span><span class="d">'+(a[1]||"")+'</span></span></label>';
     ul.appendChild(li);
   });
-  ul.addEventListener("change",function(){progress(el,barId);gate()});
+  ul.addEventListener("change",function(){
+    if(S){S[key]=Array.prototype.map.call(ul.querySelectorAll("input"),function(x){return x.checked});}
+    progress(el,barId);gate();touch();
+  });
   progress(el,barId);
+}
+function setChecks(el,arr){
+  Array.prototype.forEach.call($(el).querySelectorAll("input"),function(x,i){x.checked=!!(arr&&arr[i])});
 }
 function progress(el,barId){
   var b=$(el).querySelectorAll("input"), n=0;
@@ -644,8 +978,8 @@ function progress(el,barId){
   $("#"+barId).style.width=(n/b.length*100)+"%";
   return n===b.length;
 }
-buildChk("#c8",CHK8,"bar1");
-buildChk("#c10",CHK10,"bar2");
+buildChk("#c8",CHK8,"bar1","chk8");
+buildChk("#c10",CHK10,"bar2","chk10");
 var src=$("#src"), out=$("#out"), chips=$("#chips"), redCount=0, lastRed=[];
 function scan(){
   var t=src.value;
@@ -681,8 +1015,8 @@ function scan(){
   }
   chips.innerHTML=cs; gate();
 }
-src.addEventListener("input",scan);
-$("#clear").onclick=function(){src.value="";scan();src.focus()};
+src.addEventListener("input",function(){scan();if(S){S.src=src.value;touch()}});
+$("#clear").onclick=function(){src.value="";scan();if(S){S.src="";touch()}src.focus()};
 $("#redact").onclick=function(){
   var t=src.value;
   if(!t.trim()){say("先に本文を貼ってください");return}
@@ -693,14 +1027,14 @@ function gate(){
   var a=progress("#c8","bar1"), b=progress("#c10","bar2"), g=$("#gate");
   var pasted=src.value.trim().length>0;
   if(a&&b&&redCount===0&&pasted){
-    g.className="gate yes"; g.querySelector(".g1").textContent="押していい";
-    $("#gmsg").textContent="KDPの「Kindle 本を出版」。赤がゼロです。押すのは自分。誤字／権利／価格、そして事例の匿名化を最後にもう一度。";
+    g.className="gate yes"; g.querySelector(".g1").textContent=S&&S.published?"出版済み（"+S.published+"）":"押していい";
+    $("#gmsg").textContent="KDPの「Kindle 本を出版」。赤がゼロです。押すのは自分。誤字／権利／価格、そして事例の匿名化を最後にもう一度。押したら下のボタンで記録。";
   }else{
     g.className="gate no"; g.querySelector(".g1").textContent="まだ押すな";
     var r=[];
     if(!pasted) r.push("本文をまだ貼っていません");
     if(redCount>0) r.push("赤が"+redCount+"箇所 残っています");
-    if(!a) r.push("目でやる10個が終わっていません");
+    if(!a) r.push("目でやる"+CHK8.length+"個が終わっていません");
     if(!b) r.push("規約のゲートが終わっていません");
     $("#gmsg").textContent=r.join("／");
   }
@@ -721,9 +1055,8 @@ document.addEventListener("click",function(e){
     copy($("#"+id).textContent,function(){
       say("コピーしました"); b.classList.add("copied"); var o=b.textContent; b.textContent="コピー済み";
       setTimeout(function(){b.classList.remove("copied");b.textContent=o},2200);
-      if(id==="p1") $("#c2").classList.remove("locked");
-      if(id==="p2") $("#c3").classList.remove("locked");
-      if(id==="p3") $("#c4").classList.remove("locked");
+      var u={p1:1,p2:2,p3:3}[id];
+      if(u&&S&&S.u<u){S.u=u;applyLocks();touch()}
     });
   }
   if(b.dataset.v){
@@ -731,13 +1064,26 @@ document.addEventListener("click",function(e){
   }
 });
 function renderAll(){
-  $("#ro").innerHTML='いまの1冊：<b>'+esc(J())+'</b> ／ '+TH().n+'。月5冊。1冊目は棚に並ぶこと。<br>'+esc(D());
+  $("#ro").innerHTML='いまの1冊：<b>'+esc(J())+'</b> ／ '+TH().n+'。月5冊。1冊目は棚に並ぶこと。<br>'+esc(D())+
+    '<br>保存先：<b>'+(V.h?esc(V.h.name):"（vault 未選択）")+'/'+esc(bookPath(curKey||bookKey(+tsel.value)))+'/</b>';
   $("#p1").textContent=P1(); $("#p2").textContent=P2(); $("#p3").textContent=P3(); $("#p4").textContent=P4();
   buildShelf(); buildForm();
 }
-jsel.onchange=function(){jfree.value="";renderAll()};
-tsel.onchange=renderAll; jfree.oninput=renderAll;
-renderAll(); step1(); step2(); scan();
+function roleChanged(){if(S){S.role=J();touch()}renderAll()}
+jsel.onchange=function(){jfree.value="";roleChanged()};
+jfree.oninput=roleChanged;
+tsel.onchange=function(){switchBook(+tsel.value)};
+window.addEventListener("beforeunload",function(){if(dirty&&S)lsSet(curKey,S)});
+document.addEventListener("visibilitychange",function(){if(document.hidden)flush()});
+(function init(){
+  var g=lsGet("goal"), c=lsGet("cost");
+  if(g) goal.value=g; if(c!=null) $("#cost").value=c;
+  step2(); costCalc();
+  switchBook(+tsel.value).then(function(){
+    if(!V.fsa){vstat("","このブラウザはフォルダへの直接保存に非対応。各欄の「いま保存」で .md をダウンロードします。");$("#vpick").textContent="直接保存について";return}
+    idbGet().then(function(h){if(h) connect(h,false)});
+  });
+})();
 </script>
 </body>
 </html>
