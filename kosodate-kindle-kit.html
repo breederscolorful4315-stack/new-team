@@ -3,7 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>喋って本キット 不登校版</title>
+<title>喋って本キット 子育て版</title>
+<meta name="theme-color" content="#0c0e12">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%233ad07f'/%3E%3Ctext x='32' y='45' font-size='36' font-weight='900' text-anchor='middle' fill='%230c0e12' font-family='Hiragino Sans,Yu Gothic,Meiryo,sans-serif'%3E%E8%82%B2%3C/text%3E%3C/svg%3E">
 <style>
 :root{
   --bg:#0c0e12; --panel:#14171d; --panel2:#1b1f27; --line:#2b313b;
@@ -79,6 +81,8 @@ button{font-family:inherit;font-size:15px;font-weight:800;border:0;border-radius
 .book{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px;
   display:flex;flex-direction:column;gap:7px;cursor:pointer}
 .book:hover{border-color:var(--acc)}
+.agehd{grid-column:1/-1;font-size:12.5px;font-weight:800;color:var(--tx2);letter-spacing:.12em;margin:10px 0 -2px;padding-bottom:4px;border-bottom:1px solid var(--line)}
+.agehd:first-child{margin-top:0}
 .book.on{border-color:var(--acc);background:#1d1a12}
 .bn{font-size:11px;font-weight:800;color:var(--acc);letter-spacing:.12em}
 .bt{font-size:15px;font-weight:700;line-height:1.5}
@@ -175,38 +179,51 @@ textarea.ans{min-height:140px;margin-top:8px;font-size:14.5px}
 .costrow input{max-width:160px}
 #pubBtn{margin-top:12px;background:var(--ok);color:#08120c;display:none}
 .gate.yes #pubBtn{display:inline-block}
+details.pin{margin-top:12px;font-size:13px;color:var(--tx2)}
+details.pin summary{cursor:pointer;font-weight:800;color:var(--acc);list-style:none}
+details.pin summary::before{content:"📌 "}
+details.pin div{margin-top:8px;line-height:1.85}
+details.pin b{color:var(--tx)}
 </style>
 </head>
 <body>
 <header>
   <div class="wrap">
-    <span class="badge">視聴者特典　不登校専門家版</span>
-    <h1>喋って本キット　不登校版</h1>
-    <p class="sub">不登校との関わり方を1つ選ぶ。あとは、貼って、値段を決めて、検品を通すだけ。</p>
+    <span class="badge">視聴者特典　子育て版（2歳〜18歳）</span>
+    <h1>喋って本キット　子育て版</h1>
+    <p class="sub">子育てとの関わり方と、子どもの年齢を1つ選ぶ。あとは、貼って、値段を決めて、検品を通すだけ。</p>
     <p class="byline">「今ある武器で飯を食う」／三日坊主男子『はると』のほったらかし副業　合言葉はこのページには送らない。</p>
-    <div class="privacy">このページは通信しません。保存先を選ぶと、あなたのPCの Obsidian vault に直接書き込みます。外には出ません。<br>ただし Claude に貼った内容は Anthropic に送られます。子どもの名前・学校名・地域は、喋る時点で入れないでください。</div>
+    <div class="privacy">このページは通信しません。保存先を選ぶと、あなたのPCの Obsidian vault に直接書き込みます。外には出ません。<br>ただし Claude に貼った内容は Anthropic に送られます。子どもの名前・園名・学校名・地域は、喋る時点で入れないでください。</div>
     <div class="setbar">
       <div class="setcard">
         <div class="setttl">ここだけ決めれば、下の3つが全部そろいます</div>
         <div class="g2">
           <div>
-            <label class="lb">不登校との関わり方（立場）</label>
+            <label class="lb">子育てとの関わり方（立場）</label>
             <div class="selwrap"><select id="job"></select></div>
           </div>
           <div>
-            <label class="lb">いま作る1冊</label>
+            <label class="lb">いま作る1冊（年齢ごとの棚）</label>
             <div class="selwrap"><select id="theme"></select></div>
           </div>
         </div>
         <div style="margin-top:11px">
           <label class="lb">リストに無い立場はここに入力（任意）</label>
-          <input type="text" id="jobfree" placeholder="例：不登校の子向けオンライン教室の講師" autocomplete="off">
+          <input type="text" id="jobfree" placeholder="例：親子向けリトミック教室の講師" autocomplete="off">
         </div>
         <div class="readout" id="ro"></div>
         <div class="vault">
           <button class="b2" id="vpick">保存先（Obsidian vault）を選ぶ</button>
           <div class="vstat" id="vstat">未接続。いまは このブラウザの中にだけ 記憶しています。</div>
         </div>
+        <details class="pin">
+          <summary>Chrome のタブに固定して、毎日ここから始める</summary>
+          <div>1. このファイルを PC の Chrome で開く（ファイルを Chrome のウィンドウにドラッグ）。<br>
+          2. タブを右クリック →「固定」。左端に「育」のアイコンだけが残ります。<br>
+          3. 次に Chrome を開いたときも残すなら：設定 →「起動時」→「前回開いていたページを開く」。<br>
+          4. 閉じても、最後に作っていた本・書きかけの欄・チェックはこのブラウザに残ります。vault につないでいれば、そちらにも自動で保存。<br>
+          <b>ファイルの場所は動かさない。</b>動かすと別のページ扱いになり、固定し直しと vault の再接続が要ります。</div>
+        </details>
       </div>
     </div>
   </div>
@@ -239,7 +256,7 @@ textarea.ans{min-height:140px;margin-top:8px;font-size:14.5px}
     <div class="lbl">貼る 2 ／ ネタ3つと、章立て8</div>
     <div class="pbox"><pre id="p2"></pre></div>
     <div class="btnrow"><button class="b1" data-c="p2">この文をコピー</button></div>
-    <div class="note"><b>1つしか出ない時は「あと2つ」。12章になったら「8章にまとめて」。</b>選ぶ軸は「詳しいこと」ではなく「読む人（親・先生・本人）が今困っていること」。</div>
+    <div class="note"><b>1つしか出ない時は「あと2つ」。12章になったら「8章にまとめて」。</b>選ぶ軸は「詳しいこと」ではなく「読む人（その年齢の子の親）が今困っていること」。</div>
     <div class="lbl2">Claude の返事を貼る → 02_ネタと章立て.md</div>
     <textarea class="ans" id="a2" placeholder="ネタ3つと、8章の章立てを貼り付け"></textarea>
     <div class="btnrow"><button class="b2" data-save="a2">いま保存</button></div>
@@ -248,7 +265,7 @@ textarea.ans{min-height:140px;margin-top:8px;font-size:14.5px}
     <div class="lbl">貼る 3 ／ 喋った言葉を、原稿にする</div>
     <div class="pbox"><pre id="p3"></pre></div>
     <div class="btnrow"><button class="b1" data-c="p3">この文をコピー</button></div>
-    <div class="note warn"><b>入力欄のマイク（音声入力）で喋る。音声モード（Claudeと声で会話するボタン）は押すな。</b>工程が飛ぶ。切れてもそこで送って、続きを足せ。8章分、これを繰り返す。<br><b>事例を喋るときは「ある小学5年生の男の子」まで。</b>名前・学校名・地域・時期の組み合わせで、本人には分かってしまう。</div>
+    <div class="note warn"><b>入力欄のマイク（音声入力）で喋る。音声モード（Claudeと声で会話するボタン）は押すな。</b>工程が飛ぶ。切れてもそこで送って、続きを足せ。8章分、これを繰り返す。<br><b>事例を喋るときは「ある4歳の男の子」「ある中学2年生の女の子」まで。</b>名前・園名・学校名・地域・時期の組み合わせで、本人と家族には分かってしまう。自分の子の話も同じ。子どもはいつか読みます。</div>
     <div class="chaprow">
       <div class="selwrap"><select id="chap"></select></div>
       <div class="lbl2" style="margin:0" id="chapLbl">→ 03_原稿/第1章.md</div>
@@ -275,10 +292,10 @@ textarea.ans{min-height:140px;margin-top:8px;font-size:14.5px}
     <div style="font-size:14.5px;line-height:2">
       1. claude.ai（または Claude デスクトップアプリ）。メモリと過去チャットの参照をOFF　→　新しいチャット<br>
       2. 貼る1 → 一言で答える（喋っていい） → 貼る2 → マイクで章ごとに喋る → 貼る3 → 8章繰り返す → 貼る4<br>
-      3. 返事はそのつど このキットの欄に貼り戻す。vault の Kindle/不登校/ に本ごとのフォルダができる<br>
-      4. 表紙は題名と著者名だけ。子どもの写真・ランドセル姿の実写は使わない。サイズは KDP のアップロード画面に出た数字<br>
+      3. 返事はそのつど このキットの欄に貼り戻す。vault の Kindle/子育て/ に本ごとのフォルダができる<br>
+      4. 表紙は題名と著者名だけ。子どもの写真・自分の子の実写は使わない。サイズは KDP のアップロード画面に出た数字<br>
       5. kdp.amazon.co.jp　本棚の上「タイトルの新規作成」→「電子書籍 (マンガ以外)」<br>
-      6. 言語は日本語。フリガナはカタカナ。サブタイトルも入れる（「不登校」「親」など検索される言葉）<br>
+      6. 言語は日本語。フリガナはカタカナ。サブタイトルも入れる（「〇歳」「イヤイヤ期」「反抗期」など、親が検索する言葉）<br>
       7. 権利は「私は著作権者であり」。性的表現は「いいえ」。主なマーケットプレイスは Amazon.co.jp<br>
       8. KDP セレクトにチェック。出版地域はすべての地域（全世界13カ国。翻訳はしない）<br>
       9. ロイヤリティ70%。電子1,200円。紙は1,500円（砕木パルプ紙）
@@ -287,8 +304,8 @@ textarea.ans{min-height:140px;margin-top:8px;font-size:14.5px}
   </div>
 </section>
 <section>
-  <div class="step"><div class="stepno">C</div><div class="steptitle">2冊目以降の15本は、もう決まっています</div></div>
-  <p class="hint"><b style="color:var(--tx)">3冊目で止まる理由の半分は、次に何を作るか思いつかないことです。</b>不登校の本は、読む人の「時期」で棚が分かれます。</p>
+  <div class="step"><div class="stepno">C</div><div class="steptitle">2冊目以降の18本は、もう決まっています</div></div>
+  <p class="hint"><b style="color:var(--tx)">3冊目で止まる理由の半分は、次に何を作るか思いつかないことです。</b>子育ての本は、子どもの「年齢」で棚が分かれます。2歳から18歳まで、6段・各3冊。親は毎年、次の段の本を探しに来ます。</p>
   <div class="shelf" id="shelf"></div>
 </section>
 <div class="next"><button data-go="2">値段を決める →</button></div>
@@ -322,7 +339,7 @@ textarea.ans{min-height:140px;margin-top:8px;font-size:14.5px}
       <div class="kpi"><div class="k">1冊あたり月</div><div class="v" id="perBook">26,734<span class="u">円</span></div></div>
     </div>
     <div class="verdict v-ok" id="verdict"></div>
-    <div class="note"><b>1冊目の目標は、棚に並ぶことです。</b>初月はゼロ。72時間の審査と、読み放題は翌月15日頃に確定。階段は 0 → 8〜18万 → 30〜40万。3ヶ月目の内訳は電子243,310／紙41,548／KU75,000／海外41,154。数字は標準モデルで、不登校ジャンルでの実績値ではありません。</div>
+    <div class="note"><b>1冊目の目標は、棚に並ぶことです。</b>初月はゼロ。72時間の審査と、読み放題は翌月15日頃に確定。階段は 0 → 8〜18万 → 30〜40万。3ヶ月目の内訳は電子243,310／紙41,548／KU75,000／海外41,154。数字は標準モデルで、子育てジャンルでの実績値ではありません。</div>
     <div class="note warn"><b>固定費は Claude の有料プラン（Pro）だけ。</b>KDP 0円。Canva 0円。月額は為替と税で変わるので、Claude の画面に出ている金額を入れる。
       <div class="costrow"><input type="number" id="cost" min="0" step="1" value="3000"><span>円／月 → 1冊の原価 <b id="costPer">600円</b>（月5冊）</span></div></div>
   </div>
@@ -361,7 +378,7 @@ textarea.ans{min-height:140px;margin-top:8px;font-size:14.5px}
     <div class="lbl" style="margin-top:18px">自分で書いたタイトルを検査する</div>
     <input type="text" id="check" placeholder="タイトルを貼ると、危ない言葉を検出します" autocomplete="off" style="margin-top:8px">
     <div id="flag"></div>
-    <div class="note warn"><b>不登校の本で一番落ちるのは「約束」です。</b>「必ず学校に戻れる」「〇日で再登校」「治る」。読む親は追い詰められている。約束した瞬間に、低評価とクレームの本になる。</div>
+    <div class="note warn"><b>子育ての本で一番落ちるのは「約束」と「比べる言葉」です。</b>「3日でトイトレ完了」「頭が良くなる」「東大に入る」「叱らなくても言うことを聞く」。読む親は、うまくいかない自分を責めている。約束した瞬間に、低評価とクレームの本になる。</div>
   </div>
 </section>
 <div class="next"><button data-go="3">検品して出す →</button></div>
@@ -378,7 +395,7 @@ textarea.ans{min-height:140px;margin-top:8px;font-size:14.5px}
       <button class="b1" id="redact">赤を伏字にしてコピー</button>
       <button class="b2" id="clear">消す</button>
     </div>
-    <div class="note warn"><b>赤はゼロ。</b>煽り（必ず／誰でも／絶対／完全版／月収／放置／稼げる）。約束（治る／完治／劇的／〇日で／100%／再登校率）。ローマ字の括弧・ピリオド・コンマ。ロゴとURL。<br><b>黄色は目で見る。</b>学校名や「〇〇くん」など特定につながる言葉。診断名・薬。「甘え」「怠け」「親のせい」など責める言葉（否定する文脈なら残してよい）。原稿本文の足し算は、貼る3の「補った箇所」で潰す。</div>
+    <div class="note warn"><b>赤はゼロ。</b>煽り（必ず／誰でも／絶対／完全版／月収／放置／稼げる）。約束（頭が良くなる／天才／IQ／〇日で／100%／東大／治る）。ローマ字の括弧・ピリオド・コンマ。ロゴとURL。<br><b>黄色は目で見る。</b>園名・学校名や「〇〇くん」など特定につながる言葉。診断名・薬・発達の遅れ。「母親失格」「愛情不足」「親のせい」など責める言葉。叩く・体罰など安全に関わる言葉（否定する文脈なら残してよい）。原稿本文の足し算は、貼る3の「補った箇所」で潰す。</div>
   </div>
 </section>
 <section>
@@ -397,7 +414,7 @@ textarea.ans{min-height:140px;margin-top:8px;font-size:14.5px}
 </div>
 <footer>
   検出は文字のパターンによる機械判定です。すべてを拾えるわけではありません。<br>
-  このキットは本を作る手順の道具です。医療・心理・法律の助言ではありません。診断や治療に触れる章は、専門職の確認を取ってください。<br>
+  このキットは本を作る手順の道具です。医療・発達・心理・法律の助言ではありません。病気・発達・アレルギー・事故予防に触れる章は、専門職の確認を取ってください。<br>
   価格、ロイヤリティ、印刷コスト、KENPは撮影時点（2026-08-26台本）。出す前に kdp.amazon.co.jp のヘルプで最新を確認してください。<br>
   このページは通信しません。入力は端末から出ません。
 </footer>
@@ -405,68 +422,72 @@ textarea.ans{min-height:140px;margin-top:8px;font-size:14.5px}
 <div class="toast" id="toast">コピーしました</div>
 <script>
 var JOBS=[
-["支援の現場","フリースクール運営","学校に行かない子の昼間を、毎日預かっている。親の最初の相談を一番多く聞いている"],
-["支援の現場","フリースクールスタッフ","子どもが動き出す前のサインを、横で見ている"],
-["支援の現場","教育支援センター（適応指導教室）","学校と家のあいだ。出席扱いと戻り方の実際を知っている"],
-["支援の現場","訪問支援員（アウトリーチ）","家から出られない子の部屋の前まで行っている。最初の一言が本になる"],
-["支援の現場","不登校専門の家庭教師","勉強の遅れと、勉強より先に要るものの順番"],
-["支援の現場","通信制高校・サポート校の職員","中3の親が一番知りたい進路の内側"],
-["支援の現場","塾講師（不登校生担当）","学力の穴の埋め方と、通い続けられる条件"],
-["支援の現場","居場所・子ども食堂の運営","学校以外で大人と話せる場所。来なくなる理由も知っている"],
-["学校","担任教師","連絡の頻度、家庭訪問、プリントの渡し方。正解が誰にも教わらない"],
-["学校","養護教諭（保健室）","保健室登校と、教室に戻る前の段階"],
-["学校","スクールカウンセラー","子どもと親と先生の三方から話を聞いている"],
-["学校","スクールソーシャルワーカー","家庭の事情と制度をつなぐ。窓口の使い方"],
-["学校","生徒指導・教育相談担当","校内の支援会議。学校の中で何が決まっているか"],
-["学校","校長・教頭（管理職）","学校として出席扱いや別室をどう判断しているか"],
-["医療・福祉","臨床心理士・公認心理師","面接の中で親子に何を聞いているか"],
-["医療・福祉","児童精神科・思春期外来のスタッフ","受診のタイミングと、受診で分かること・分からないこと"],
-["医療・福祉","小児科（起立性調節障害など）","朝起きられない体の話。親が誤解しやすいところ"],
-["医療・福祉","放課後等デイサービス","特性のある子の居場所と、学校との連携"],
-["医療・福祉","子ども家庭支援・相談窓口","相談に来る親が最初に言う言葉。つなぎ先の選び方"],
-["家庭・当事者","不登校の子の母親","最初の朝から今日までの順番。渦中の親にしか書けない"],
-["家庭・当事者","不登校の子の父親","母親任せにしない関わり方。父親向けの本は少ない"],
-["家庭・当事者","元不登校の本人","あのとき大人に言われて楽だったこと、苦しかったこと"],
-["家庭・当事者","親の会の運営","何十組もの親の「最初の3ヶ月」を聞いてきた"],
-["家庭・当事者","不登校の子の祖父母","口を出さずに支える距離感"],
-["家庭・当事者","不登校の子のきょうだい","家の中で後回しにされた側から見えたこと"]
+["園・保育","保育士","毎日十数人の2〜5歳を見ている。家では見えない顔と、朝の別れ際を知っている"],
+["園・保育","幼稚園教諭","入園・行事・就学前。親が一番焦る時期を横で見ている"],
+["園・保育","認定こども園・園長","何百組の親子の「最初の集団生活」を見てきた"],
+["園・保育","ベビーシッター・家事支援","家の中に入って見ている。親が人に言えない困りごと"],
+["園・保育","学童保育の指導員","放課後の小学生。学校と家のあいだの素の姿"],
+["学校・習いごと","小学校教師","低学年と高学年で、親に伝えたいことがまるで違う"],
+["学校・習いごと","中学校教師","反抗期・部活・高校受験。親と子が一番すれ違う3年間"],
+["学校・習いごと","高校教師","進路と自立。親の手を離れていく最後の時期"],
+["学校・習いごと","塾講師・家庭教師","勉強できる子の家で、親が言っていること・言っていないこと"],
+["学校・習いごと","習いごと・スポーツの指導者","続く子とやめる子。親の関わり方の差"],
+["医療・専門職","小児科の看護師・スタッフ","熱・けが・予防接種。親が夜中に検索していること"],
+["医療・専門職","保健師・子育て支援センター","健診で親が一番よく口にする心配ごと"],
+["医療・専門職","臨床心理士・公認心理師","親子の面接で、親が本当に困っていること"],
+["医療・専門職","言語聴覚士・作業療法士","ことば・手先・からだの育ち。待つか、相談するかの境目"],
+["医療・専門職","管理栄養士・食育の仕事","偏食・少食・食べムラ。毎日の食卓の話"],
+["医療・専門職","放課後等デイサービス・療育","特性のある子の毎日と、家でできる工夫"],
+["家庭・当事者","2人以上を育てた母親","上の子の失敗が、下の子で生きた。その順番"],
+["家庭・当事者","子育て中の父親","父親の側から見た家事・育児。父親向けの本は少ない"],
+["家庭・当事者","ワーキングマザー・共働き家庭","時間がない家の回し方。保育園・学童・朝の30分"],
+["家庭・当事者","ひとり親","1人で回す家の、手の抜きどころと頼り先"],
+["家庭・当事者","子育てを終えた親（18歳以上の子）","振り返ってみて、本当に大事だったこと・どうでもよかったこと"],
+["家庭・当事者","祖父母（孫育て）","口を出さずに手を貸す距離感。今と昔の違い"],
+["家庭・当事者","双子・年子の親","同時に2人。一般の育児書が合わない部分"],
+["家庭・当事者","転勤・海外での子育て経験者","環境が変わるたびに、子どもに起きたこと"]
 ];
+var AGES=["2〜3歳","4〜6歳（幼児）","小学1〜3年","小学4〜6年","中学生","高校生（〜18歳）"];
 var THEMES=[
-{n:"不登校の最初の2週間",sub:"一番検索される時期。親が一番迷う",kw:"不登校 始まり 親 対応"},
-{n:"朝の声かけ　言っていいこと・言わないこと",sub:"毎朝の5分が本になる",kw:"不登校 朝 声かけ"},
-{n:"担任・学校との連絡のしかた",sub:"揉める前に読まれる本",kw:"不登校 学校 連絡 担任"},
-{n:"昼夜逆転とゲームとの付き合い方",sub:"親の相談で一番多い困りごと",kw:"不登校 昼夜逆転 ゲーム"},
-{n:"学校以外の居場所の選び方",sub:"フリースクール・教育支援センター・オンライン",kw:"フリースクール 居場所 選び方"},
-{n:"出席扱いと成績・内申の仕組み",sub:"知らないと損をする制度の本",kw:"不登校 出席扱い 内申"},
-{n:"高校進学の選択肢",sub:"通信制・定時制・サポート校。中2中3の親が買う",kw:"不登校 高校 通信制 進路"},
-{n:"行き渋り・五月雨登校の時期",sub:"休むか行くかの境目",kw:"行き渋り 五月雨登校 対応"},
-{n:"きょうだいへの対応",sub:"後回しになる側の本",kw:"不登校 きょうだい 兄弟"},
-{n:"親が倒れないための休み方",sub:"子どもより先に親が折れる",kw:"不登校 親 疲れた 休む"},
-{n:"父親にできること",sub:"夫婦で温度差があるときの本",kw:"不登校 父親 夫婦"},
-{n:"相談先の使い方",sub:"スクールカウンセラー・教育相談・医療の順番",kw:"不登校 相談 どこに"},
-{n:"再登校をゴールにしない関わり方",sub:"長期化した家庭が読む本",kw:"不登校 長期 ゴール 関わり方"},
-{n:"担任が最初の1ヶ月でできること",sub:"買うのは先生",kw:"不登校 担任 教師 対応"},
-{n:"元不登校の子が大人になって言うこと",sub:"その後を知りたい親へ",kw:"不登校 その後 大人"}
+{a:0,n:"イヤイヤ期の毎日の乗り切り方",sub:"一番検索される時期。親が最初に折れる",kw:"イヤイヤ期 2歳 対応"},
+{a:0,n:"トイレトレーニングの始め方と焦らない進め方",sub:"周りと比べて焦る親が買う",kw:"トイトレ 2歳 3歳 進め方"},
+{a:0,n:"ことばが遅いかも？と思ったとき",sub:"健診前後に読まれる本",kw:"言葉 遅い 2歳 相談"},
+{a:1,n:"入園前後の準備と朝の別れ方",sub:"泣いて離れない朝の本",kw:"入園 準備 登園しぶり"},
+{a:1,n:"叱り方・ほめ方の基本",sub:"毎日の声かけが本になる",kw:"叱り方 幼児 ほめ方"},
+{a:1,n:"小学校入学までに家でしておくこと",sub:"年長の親が必ず探す",kw:"入学準備 年長 家庭"},
+{a:2,n:"宿題・音読を毎日続ける家のしくみ",sub:"低学年の夕方の戦い",kw:"宿題 低学年 習慣"},
+{a:2,n:"友だちトラブルに親はどこまで入るか",sub:"学校に言うか迷う親へ",kw:"友達 トラブル 小学生 親"},
+{a:2,n:"習いごとの選び方とやめどき",sub:"続かない、やめたいと言われたとき",kw:"習い事 選び方 やめる"},
+{a:3,n:"スマホ・ゲームの家庭ルール",sub:"最初の1台を渡す前に読まれる",kw:"スマホ ルール 小学生 ゲーム"},
+{a:3,n:"中学受験するか・しないかの決め方",sub:"小3〜小4の親が買う",kw:"中学受験 決め方 迷う"},
+{a:3,n:"思春期の入り口　からだと心の変化",sub:"性教育を含む。親が言い出せない話",kw:"思春期 小学生 性教育 親"},
+{a:4,n:"反抗期の子との会話のしかた",sub:"口をきかなくなった子の親へ",kw:"反抗期 中学生 接し方"},
+{a:4,n:"部活と勉強の両立を親が支える方法",sub:"中1の夏に読まれる",kw:"部活 勉強 両立 中学生"},
+{a:4,n:"高校受験で親がしていいこと・しないこと",sub:"中2中3の親が買う",kw:"高校受験 親 サポート"},
+{a:5,n:"進路・大学選びに親はどう関わるか",sub:"口を出しすぎて揉める前に",kw:"進路 高校生 親 関わり方"},
+{a:5,n:"お金の話と自立の準備",sub:"一人暮らし・アルバイト・お小遣い",kw:"高校生 お金 自立 教育"},
+{a:5,n:"18歳で手を離すまでに伝えておくこと",sub:"子育ての最後の本。卒業する親へ",kw:"子離れ 18歳 親 伝える"}
 ];
 var RULES=[
 {id:"hype",sev:"r",label:"煽り",re:/(?:必ず|誰でも|絶対|完全版|神本|神メソッド|月収|放置|スマホだけで|稼げる)/g},
-{id:"promise",sev:"r",label:"約束・断定",re:/(?:治る|治す|治せる|完治|劇的|[0-9０-９一二三四五六七八九十]+(?:日|週間|ヶ月|か月)で(?:再登校|登校|解決|改善)|100%|１００％|再登校率)/g},
+{id:"promise",sev:"r",label:"約束・断定",re:/(?:頭が良くなる|頭がよくなる|天才|IQ|ＩＱ|東大|治る|治す|完治|劇的|魔法の|[0-9０-９一二三四五六七八九十]+(?:日|週間|ヶ月|か月)で(?:トイトレ|おむつ|オムツ|卒業|解決|改善|完了|できる|変わる|言うことを聞く)|100%|１００％)/g},
 {id:"roma",sev:"r",label:"ローマ字の記号",re:/(?:[A-Za-z][A-Za-z0-9 \-]*[.,()（）．，])/g},
 {id:"url",sev:"r",label:"ロゴ・URL",re:/(?:https?:\/\/|www\.|\.com|\.co\.jp|ロゴ)/gi},
-{id:"ident",sev:"y",label:"子ども・学校が特定されそう",re:/(?:[一-龥ぁ-んァ-ヶ]{1,6}(?:小学校|中学校|高等学校)|[一-龥ぁ-んァ-ヶ]{1,4}(?:くん|ちゃん)|実名|本名)/g},
-{id:"medical",sev:"y",label:"診断・薬",re:/(?:診断|服薬|薬|発達障害|ADHD|ASD|自閉|うつ|起立性調節障害|HSP)/g},
-{id:"blame",sev:"y",label:"責める言葉",re:/(?:甘え|怠け|わがまま|親のせい|育て方)/g},
+{id:"ident",sev:"y",label:"子ども・園・学校が特定されそう",re:/(?:[一-龥ぁ-んァ-ヶ]{1,6}(?:保育園|幼稚園|こども園|小学校|中学校|高等学校)|[一-龥ぁ-んァ-ヶ]{1,4}(?:くん|ちゃん)|実名|本名|うちの長男|うちの長女)/g},
+{id:"medical",sev:"y",label:"診断・薬・発達",re:/(?:診断|服薬|薬|発達障害|発達の遅れ|ADHD|ASD|自閉|うつ|アレルギー|HSP|グレーゾーン)/g},
+{id:"blame",sev:"y",label:"責める・比べる言葉",re:/(?:母親失格|父親失格|愛情不足|親のせい|育て方が悪い|甘やかし|わがまま|普通の子|できない子|〇〇ちゃんは)/g},
+{id:"safety",sev:"y",label:"安全に関わる言葉",re:/(?:叩く|たたく|体罰|お尻ペンペン|閉じ込め|放っておく|一人で留守番)/g},
 {id:"rights",sev:"y",label:"権利・他人の名前っぽい",re:/(?:著作権者でない|他人の経験|実在の)/g},
-{id:"cover",sev:"y",label:"表紙に入れてはいけないもの",re:/(?:QR|二次元|顔写真|アイコン)/g}
+{id:"cover",sev:"y",label:"表紙に入れてはいけないもの",re:/(?:QR|二次元|顔写真|アイコン|子どもの写真)/g}
 ];
 var CHK8=[
 ["Claude のメモリと過去チャットの参照をOFFにした","個人設定（Claudeへの指示）も空。切らないと再現できない"],
 ["1冊は1つのチャットで最後まで進めた","貼る1〜4は前の返事が前提。途中で新しいチャットにしない"],
 ["押したのはマイク（音声入力）。音声モードは使っていない","音声モードは会話になる。工程が飛ぶ"],
 ["貼る3の「補った箇所」を確認した","言っていない経験が載っていたら消す"],
-["子ども・家庭・学校が特定できる情報を消した","名前、学校名、地域、年度、珍しい出来事の組み合わせ。本人が読んで分かる形はNG"],
-["診断・薬・治療の話を断定していない","医療職でなければ「受診先で確認を」で止める"],
-["親や子どもを責める書き方になっていない","「甘え」「親のせい」と読める文が無いか。読むのは渦中の親"],
+["子ども・家庭・園・学校が特定できる情報を消した","名前、園名、学校名、地域、年度、珍しい出来事の組み合わせ。自分の子の話でも、本人が読んで嫌がる形はNG"],
+["病気・発達・アレルギー・事故の話を断定していない","医療職でなければ「かかりつけ医・健診で確認を」で止める。年齢の目安は「個人差がある」を添える"],
+["親や子どもを責める・比べる書き方になっていない","「母親失格」「普通の子は」と読める文が無いか。叩く・体罰を肯定していないか。読むのは疲れている親"],
 ["タイトルのフリガナはカタカナ／ローマ字に括弧・ピリオド・コンマが無い","日本語タイトルだと必須。この3つは使えない"],
 ["表紙は題名と著者名だけ","子どもの写真、ロゴ、URL、実在の人名を入れない"],
 ["プレビューアーで本として開いて見た","見出しの崩れと変な改行"]
@@ -475,7 +496,7 @@ var CHK10=[
 ["KDPセレクトにチェックした","読み放題に載る。15冊積む前提なら入れる"],
 ["出版地域はすべての地域（全世界）","13カ国。翻訳はしない"],
 ["権利は「私は著作権者であり」","喋った自分の経験ならこれ"],
-["事例は本人・保護者の同意を取ったか、特定できない形に作り替えた","守秘義務のある職種は、職場の規程も確認"],
+["事例は本人・保護者の同意を取ったか、特定できない形に作り替えた","保育士・教師・医療職など守秘義務のある職種は、職場の規程も確認。自分の子なら、大きくなって読んでも困らない形か"],
 ["露骨な性的表現は「いいえ」",""],
 ["主なマーケットプレイスは Amazon.co.jp","ここで決めた価格が他12カ国の基準"],
 ["ロイヤリティは70%。電子は1,200円","250〜1,650の外だと70%が選べない"],
@@ -492,11 +513,16 @@ var jsel=$("#job"), tsel=$("#theme"), jfree=$("#jobfree");
     if(j[0]!==g){g=j[0];og=document.createElement("optgroup");og.label=g;jsel.appendChild(og);}
     var o=document.createElement("option");o.value=i;o.textContent=j[1];og.appendChild(o);
   });
-  THEMES.forEach(function(t,i){var o=document.createElement("option");o.value=i;o.textContent=(i+1)+". "+t.n;tsel.appendChild(o)});
+  var ga=-1,tg=null;
+  THEMES.forEach(function(t,i){
+    if(t.a!==ga){ga=t.a;tg=document.createElement("optgroup");tg.label=AGES[t.a];tsel.appendChild(tg);}
+    var o=document.createElement("option");o.value=i;o.textContent=(i+1)+". "+t.n;tg.appendChild(o);
+  });
 })();
 function J(){return jfree.value.trim()?jfree.value.trim():JOBS[jsel.value][1]}
-function D(){var f=jfree.value.trim(); return f?f+"として見てきた不登校の内側。外からは見えない":JOBS[jsel.value][2]}
+function D(){var f=jfree.value.trim(); return f?f+"として見てきた子育ての内側。外からは見えない":JOBS[jsel.value][2]}
 function TH(){return THEMES[tsel.value]}
+function AG(){return AGES[TH().a]}
 function yen(n){return Math.round(n).toLocaleString("ja-JP")}
 function pad2(n){return n<10?"0"+n:""+n}
 function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
@@ -510,12 +536,12 @@ function go(n){
   window.scrollTo({top:0,behavior:"smooth"});
 }
 function P1(){
-  return "あなたは、不登校に関わってきた無名の個人が、自分の経験だけを元に Kindle 本を出すのを支援する編集者です。\n\n"+
+  return "あなたは、子育てに関わってきた無名の個人が、自分の経験だけを元に Kindle 本を出すのを支援する編集者です。\n\n"+
   "【前提】\n"+
   "私は文章を書いた経験がありません。本を出した実績もありません。\n"+
   "自分では「専門家と名乗れるほどの経験はない」と思っています。\n"+
-  "不登校との関わり方（立場）は「"+J()+"」です。いま作る1冊の仮の軸は「"+TH().n+"」です。"+D()+"。\n"+
-  "読む人の多くは、いま子どもが学校に行けなくなって困っている保護者、または不登校の子を受け持つ先生です。\n\n"+
+  "子育てとの関わり方（立場）は「"+J()+"」です。いま作る1冊は、子どもの年齢「"+AG()+"」、仮の軸は「"+TH().n+"」です。"+D()+"。\n"+
+  "読む人の多くは、いま「"+AG()+"」の子どもを育てていて、毎日の中で困っている保護者です。\n\n"+
   "【やること】\n"+
   "私に質問をしてください。\n"+
   "目的は、私が「当たり前すぎて価値がないと思っている経験」を、外から見つけ出すことです。\n\n"+
@@ -524,29 +550,30 @@ function P1(){
   "・答えが一言で済む形にしてください。長い説明を求めないでください。\n"+
   "・資格・肩書き・成功例の数は聞かないでください。\n"+
   "・代わりに、次のようなことを聞いてください：\n"+
-  "  不登校に関わって何年か／これまで関わった子どもや家庭のおおよその数／\n"+
-  "  最初の相談で保護者が一番よく口にする言葉／保護者が最初の1ヶ月でやってしまいがちなこと／\n"+
-  "  子どもが少し動き出す前によく見えるサイン／学校とのやりとりで揉めやすいところ／\n"+
+  "  この年齢の子に関わって何年か／これまで関わった子どもや家庭のおおよその数（自分の子なら人数と年齢差）／\n"+
+  "  この年齢の親が一番よく口にする心配ごと／親がこの時期にやってしまいがちなこと／\n"+
+  "  子どもが次の段階に進む前によく見えるサイン／家と園・学校で子どもの様子が違うところ／\n"+
   "  自分が考え方を変えたきっかけ／周りから一番よく聞かれる質問／\n"+
-  "  人に説明したときに「知らなかった」と言われたこと\n\n"+
+  "  人に説明したときに「知らなかった」と言われたこと／今ならやらないと思うこと\n\n"+
   "【禁止】\n"+
-  "・子ども・家庭・学校の実名や、地域・年度など個人の特定につながる詳細を聞くこと\n"+
+  "・子ども・家庭・園・学校の実名や、地域・年度など個人の特定につながる詳細を聞くこと\n"+
   "・「あなたの強みは何ですか」のような、私が答えられない抽象的な質問\n"+
   "・励まし、称賛、前置き。質問だけを出してください。";
 }
 function P2(){
-  return "私の答えを踏まえて、不登校をテーマにした Kindle 本のネタ候補を3つ出してください。\n"+
-  "私の立場は「"+J()+"」。いま作る1冊の軸は「"+TH().n+"」。\n\n"+
+  return "私の答えを踏まえて、子育てをテーマにした Kindle 本のネタ候補を3つ出してください。\n"+
+  "私の立場は「"+J()+"」。子どもの年齢は「"+AG()+"」。いま作る1冊の軸は「"+TH().n+"」。\n\n"+
   "【各候補に必ず付けること】\n"+
   "1. 本のタイトル案（日本語・20文字前後）\n"+
-  "2. 誰が読むのか（1行。子どもの学年、不登校になってからの期間、読む人の立場を含めること）\n"+
+  "2. 誰が読むのか（1行。子どもの年齢・学年、読む人の立場、いま何に困っているかを含めること）\n"+
   "3. その人が、これを読まないとどう困るのか（1行）\n"+
   "4. なぜ私がこれを書けるのか（私の答えの中から、根拠を1つ引用すること）\n"+
-  "5. その人が Amazon の検索窓に打つと思われる言葉を3つ\n\n"+
+  "5. その人が Amazon の検索窓に打つと思われる言葉を3つ（年齢を表す言葉を1つ入れること）\n\n"+
   "【選ぶ基準】\n"+
   "・「私が詳しいこと」ではなく「読む人がいま困っていること」を軸にしてください\n"+
-  "・「必ず学校に戻れる」「治る」のような約束が必要になるテーマは外してください\n"+
+  "・「頭が良くなる」「〇日でできるようになる」「叱らなくても言うことを聞く」のような約束が必要になるテーマは外してください\n"+
   "・すでに専門家が何冊も出している一般論は外し、私の立場からしか見えない部分を優先してください\n"+
+  "・年齢の幅は広げすぎず、「"+AG()+"」の親がそのまま使える内容にしてください\n"+
   "・私の経験の中で、年数がいちばん長いものを優先してください\n\n"+
   "【最後に】\n"+
   "3つのうち、どれを最初の1冊にすべきか、理由を2行で書いてください。\n"+
@@ -554,7 +581,7 @@ function P2(){
 }
 function P3(){
   return "いま私が話した内容を、本の原稿の形に整えてください。\n"+
-  "私の立場は「"+J()+"」。いま作る1冊は「"+TH().n+"」。\n\n"+
+  "私の立場は「"+J()+"」。子どもの年齢は「"+AG()+"」。いま作る1冊は「"+TH().n+"」。\n\n"+
   "【条件】\n"+
   "・話し言葉を書き言葉に直してください。「えーと」「あの」「まあ」は消してください。\n"+
   "・内容を足さないでください。私が言っていないことを書かないでください。\n"+
@@ -563,27 +590,28 @@ function P3(){
   "・見出しを2〜3個入れてください。\n"+
   "・数字が出てきた箇所は、そのままの数字を残してください。\n"+
   "・敬体（です・ます）で統一してください。\n"+
-  "・子どもや家庭の事例は、名前・学校名・地域・年度を伏せ、「ある中学2年生の女の子」のように一般化してください。\n"+
-  "・診断名・薬・治療の効果について、私が言っていない断定を加えないでください。\n"+
-  "・保護者や子どもを責めていると読める表現は、意味を変えずに言い換えてください。\n\n"+
+  "・子どもや家庭の事例は、名前・園名・学校名・地域・年度を伏せ、「ある4歳の男の子」「ある中学2年生の女の子」のように一般化してください。\n"+
+  "・病気・発達・アレルギー・事故予防について、私が言っていない断定を加えないでください。年齢の目安には「個人差があります」を添えてください。\n"+
+  "・保護者や子どもを責めている・ほかの子と比べていると読める表現は、意味を変えずに言い換えてください。\n\n"+
   "【最後に必ず】\n"+
   "・私が言っていないのに補った箇所があれば、リストで報告してください。\n"+
   "・個人が特定されるおそれのある箇所があれば、リストで報告してください。\n"+
+  "・子どもの安全に関わる記述（叩く、一人にする、誤飲、水まわり など）があれば、リストで報告してください。\n"+
   "・話が飛んでいて意味が通らない箇所があれば、\n"+
   "　「ここを補足で喋ってください」と指摘してください。";
 }
 function P4(){
   return "この原稿を Kindle で出版します。商品ページに使う要素を作ってください。\n"+
-  "テーマは不登校。私の立場は「"+J()+"」。いま作る1冊は「"+TH().n+"」。\n\n"+
+  "テーマは子育て。子どもの年齢は「"+AG()+"」。私の立場は「"+J()+"」。いま作る1冊は「"+TH().n+"」。\n\n"+
   "【出すもの】\n"+
   "1. 内容紹介（Amazon の商品説明に貼るもの・400字前後）\n"+
-  "   ・冒頭2行で「誰の、どの困りごとの本か」が分かるようにしてください\n"+
+  "   ・冒頭2行で「何歳の子の親の、どの困りごとの本か」が分かるようにしてください\n"+
   "   ・煽らないでください。「必ず」「誰でも」「絶対」は使わないでください\n"+
-  "   ・「治る」「学校に戻れる」「〇日で」のような結果の約束はしないでください\n"+
-  "   ・読む保護者を責める書き方、不安をあおる書き方はしないでください\n"+
+  "   ・「頭が良くなる」「〇日でできる」「言うことを聞く」のような結果の約束はしないでください\n"+
+  "   ・読む保護者を責める書き方、ほかの家と比べる書き方、不安をあおる書き方はしないでください\n"+
   "2. キーワードを7つ\n"+
   "   ・1つ50文字以内\n"+
-  "   ・実際に Amazon の検索窓に打たれる言葉にしてください\n"+
+  "   ・実際に Amazon の検索窓に打たれる言葉にしてください（年齢・学年を表す言葉を含めること）\n"+
   "   ・タイトルに入っている言葉と重複させないでください\n"+
   "3. カテゴリー候補を3つ\n"+
   "4. タイトル案を3つ（各20文字前後）。\n"+
@@ -591,8 +619,8 @@ function P4(){
   "   ローマ字に、括弧・ピリオド・コンマは使わないでください。";
 }
 /* ===== 本ごとの記憶と、Obsidian vault への保存 ===== */
-var BASE=["Kindle","不登校"];
-var LSP="futoko-kit:";
+var BASE=["Kindle","子育て"];
+var LSP="kosodate-kit:";
 var V={h:null, ok:false, fsa:typeof window.showDirectoryPicker==="function", written:{}, busy:false};
 var S=null, curKey=null, dirty=false, saveT=null, IDX={};
 function lsGet(k){try{var v=localStorage.getItem(LSP+k);return v?JSON.parse(v):null}catch(e){return null}}
@@ -617,7 +645,7 @@ function statusOf(st){
 function summary(st){return {status:statusOf(st),ch:chDone(st),updated:st.updated||""}}
 
 /* --- IndexedDB（選んだフォルダを覚えておく） --- */
-function idb(){return new Promise(function(res,rej){try{var r=indexedDB.open("futoko-kit",1);r.onupgradeneeded=function(){r.result.createObjectStore("h")};r.onsuccess=function(){res(r.result)};r.onerror=function(){rej(r.error)}}catch(e){rej(e)}})}
+function idb(){return new Promise(function(res,rej){try{var r=indexedDB.open("kosodate-kit",1);r.onupgradeneeded=function(){r.result.createObjectStore("h")};r.onsuccess=function(){res(r.result)};r.onerror=function(){rej(r.error)}}catch(e){rej(e)}})}
 function idbSet(v){return idb().then(function(db){return new Promise(function(res){var t=db.transaction("h","readwrite");t.objectStore("h").put(v,"vault");t.oncomplete=res;t.onerror=res})}).catch(function(){})}
 function idbGet(){return idb().then(function(db){return new Promise(function(res){var t=db.transaction("h","readonly");var q=t.objectStore("h").get("vault");q.onsuccess=function(){res(q.result||null)};q.onerror=function(){res(null)}})}).catch(function(){return null})}
 
@@ -654,9 +682,9 @@ function readFm(t,k){var m=t&&t.match(new RegExp("^"+k+":\\s*(.*)$","m"));if(!m)
 function link(key,file,label){return "[["+bookPath(key)+"/"+file+(label?"|"+label:"")+"]]"}
 
 function partMd(title,part,extra,body){
-  var o={type:"kindle-part",series:"不登校",book:curKey,part:part};
+  var o={type:"kindle-part",series:"子育て",book:curKey,part:part};
   for(var k in extra) o[k]=extra[k];
-  o.role=S.role; o.tags=["kindle/不登校","kindle/"+part];
+  o.role=S.role; o.tags=["kindle/子育て","kindle/"+part];
   return fm(o)+"\n# "+title+"\n\n"+body+"\n";
 }
 function buildFiles(){
@@ -680,10 +708,10 @@ function buildFiles(){
     f["05_検品結果.md"]=partMd("検品結果","検品",{red:redCount},body);
   }
   var p=eFromWant(S.want);
-  var head=fm({type:"kindle-book",series:"不登校",book_no:i+1,theme:th.n,role:S.role,status:st.status,
+  var head=fm({type:"kindle-book",series:"子育て",book_no:i+1,age:AGES[th.a],theme:th.n,role:S.role,status:st.status,
     chapters_done:n,price_ebook:p,price_print:1500,published:S.published||"",created:S.created,updated:S.updated||now(),
-    tags:["kindle/不登校","kindle/book"]});
-  var b="\n# "+pad2(i+1)+" "+th.n+"\n\n> 立場："+S.role+" ／ 状態："+st.status+"（原稿 "+n+"/8章）\n> 検索語："+th.kw+"\n\n## ファイル\n";
+    tags:["kindle/子育て","kindle/book"]});
+  var b="\n# "+pad2(i+1)+" "+th.n+"\n\n> 年齢："+AGES[th.a]+" ／ 立場："+S.role+" ／ 状態："+st.status+"（原稿 "+n+"/8章）\n> 検索語："+th.kw+"\n\n## ファイル\n";
   b+="- "+(S.parts.a1.trim()?"✅":"⬜")+" "+link(curKey,"01_質問と答え","質問と答え")+"\n";
   b+="- "+(S.parts.a2.trim()?"✅":"⬜")+" "+link(curKey,"02_ネタと章立て","ネタと章立て")+"\n";
   b+="- 原稿：";
@@ -698,11 +726,11 @@ function buildFiles(){
   return f;
 }
 function shelfMd(){
-  var s=fm({type:"kindle-shelf",series:"不登校",updated:now(),tags:["kindle/不登校","kindle/shelf"]});
-  s+="\n# 不登校 Kindle の棚\n\n| # | 本 | 状態 | 原稿 | 更新 |\n|---|---|---|---|---|\n";
+  var s=fm({type:"kindle-shelf",series:"子育て",updated:now(),tags:["kindle/子育て","kindle/shelf"]});
+  s+="\n# 子育て Kindle の棚（2歳〜18歳）\n\n| # | 年齢 | 本 | 状態 | 原稿 | 更新 |\n|---|---|---|---|---|---|\n";
   THEMES.forEach(function(th,i){
     var k=bookKey(i), x=IDX[k];
-    s+="| "+pad2(i+1)+" | "+(x?"[["+bookPath(k)+"/00_進み具合\\|"+th.n+"]]":th.n)+" | "+(x?x.status:"未着手")+" | "+(x?x.ch+"/8":"")+" | "+(x&&x.updated?x.updated.replace("T"," "):"")+" |\n";
+    s+="| "+pad2(i+1)+" | "+AGES[th.a]+" | "+(x?"[["+bookPath(k)+"/00_進み具合\\|"+th.n+"]]":th.n)+" | "+(x?x.status:"未着手")+" | "+(x?x.ch+"/8":"")+" | "+(x&&x.updated?x.updated.replace("T"," "):"")+" |\n";
   });
   return s;
 }
@@ -815,7 +843,8 @@ async function switchBook(i){
   st.parts=st.parts||{a1:"",a2:"",a4:""}; st.ch=st.ch||{};
   if(V.ok){var vs=newState();var got=await loadFromVault(curKey,vs); if(got&&(vs.updated||"")>=(st.updated||"")) st=vs}
   if(!st.role) st.role=J();
-  S=st; lsSet(curKey,S);
+  S=st; lsSet(curKey,S); lsSet("last",i);
+  document.title="子育てキット "+pad2(i+1)+"｜"+THEMES[i].n;
   applyState();
 }
 function setRole(role){
@@ -870,12 +899,14 @@ $("#pubBtn").onclick=function(){
 function buildShelf(){
   var sh=$("#shelf"); sh.innerHTML="";
   var cur=+tsel.value;
+  var la=-1;
   THEMES.forEach(function(th,i){
+    if(th.a!==la){la=th.a;var hd=document.createElement("div");hd.className="agehd";hd.textContent=AGES[th.a];sh.appendChild(hd);}
     var k=bookKey(i), x=IDX[k]||(lsGet(k)?summary(lsGet(k)):null);
     var stt=x?x.status:"未着手", cls=stt==="出版済み"?"done":stt==="未着手"?"":"go";
     var d=document.createElement("div");
     d.className="book"+(i===cur?" on":"");
-    d.innerHTML='<div class="bn">'+pad2(i+1)+' 冊目</div><div class="bt">'+th.n+'</div>'+
+    d.innerHTML='<div class="bn">'+pad2(i+1)+' 冊目　'+AGES[th.a]+'</div><div class="bt">'+th.n+'</div>'+
       '<div class="bk">'+th.kw+'</div><div class="bp"><span class="st '+cls+'">'+stt+(x&&x.ch&&stt!=="出版済み"?" "+x.ch+"/8":"")+'</span>'+(i===cur?"いま この本を作っています":th.sub)+'</div>';
     d.onclick=function(){tsel.value=i;switchBook(i);window.scrollTo({top:0,behavior:"smooth"});};
     sh.appendChild(d);
@@ -924,9 +955,9 @@ function costCalc(){
 function buildForm(){
   var box=$("#titles"); box.innerHTML="";
   var ts=[
-    "不登校　"+TH().n,
-    J()+"が見てきた不登校の"+TH().n,
-    "不登校の子の親が最初に読む本　"+J()+"の視点から"
+    AG().replace(/（.*）/,"")+"の子育て　"+TH().n,
+    J()+"が見てきた"+TH().n,
+    AG().replace(/（.*）/,"")+"の子の親が最初に読む本　"+J()+"の視点から"
   ];
   ts.forEach(function(t,i){
     var d=document.createElement("div"); d.className="ttl";
@@ -935,9 +966,9 @@ function buildForm(){
     b.onclick=function(){copy(t,function(){say("タイトルをコピーしました")})};
     d.appendChild(b); box.appendChild(d);
   });
-  $("#desc").textContent="子どもが学校に行けなくなって、何から手をつければいいか分からない保護者の方へ。"+
-    J()+"として不登校の子どもと家族のそばにいた経験から、「"+TH().n+"」を、喋った言葉のまま本にしました。"+
-    "学校に戻すための方法や、結果の約束は書いていません。登場する事例は、個人が特定されないよう内容を変えています。"+
+  $("#desc").textContent=AG().replace(/（.*）/,"")+"の子どもを育てていて、毎日「これでいいのかな」と迷っている保護者の方へ。"+
+    J()+"として子どもと家族のそばにいた経験から、「"+TH().n+"」を、喋った言葉のまま本にしました。"+
+    "「〇日でできるようになる」といった結果の約束や、ほかの家との比べっこは書いていません。成長には個人差があります。登場する事例は、個人が特定されないよう内容を変えています。"+
     "いま困っている順番で読めるように書いてあります。";
 }
 $("#check").oninput=function(){
@@ -950,7 +981,7 @@ $("#check").oninput=function(){
     if(m) m.forEach(function(x){if(hit.indexOf(x)<0)hit.push(x)});
   });
   if(hit.length){f.className="flag bad";f.textContent="この言葉を外してください → "+hit.join(" / ");}
-  else{f.className="flag good";f.textContent="危ない言葉は入っていません。あとは「不登校」と、読む人（親・先生）の言葉が入っているかどうかです。";}
+  else{f.className="flag good";f.textContent="危ない言葉は入っていません。あとは年齢（「〇歳」「小学〇年」など）と、読む人（親）の言葉が入っているかどうかです。";}
 };
 var want=$("#want"), goal=$("#goal");
 want.oninput=function(){step1();if(S){S.want=+want.value;touch()}};
@@ -1028,7 +1059,7 @@ function gate(){
   var pasted=src.value.trim().length>0;
   if(a&&b&&redCount===0&&pasted){
     g.className="gate yes"; g.querySelector(".g1").textContent=S&&S.published?"出版済み（"+S.published+"）":"押していい";
-    $("#gmsg").textContent="KDPの「Kindle 本を出版」。赤がゼロです。押すのは自分。誤字／権利／価格、そして事例の匿名化を最後にもう一度。押したら下のボタンで記録。";
+    $("#gmsg").textContent="KDPの「Kindle 本を出版」。赤がゼロです。押すのは自分。誤字／権利／価格、そして事例の匿名化（自分の子も）を最後にもう一度。押したら下のボタンで記録。";
   }else{
     g.className="gate no"; g.querySelector(".g1").textContent="まだ押すな";
     var r=[];
@@ -1064,7 +1095,7 @@ document.addEventListener("click",function(e){
   }
 });
 function renderAll(){
-  $("#ro").innerHTML='いまの1冊：<b>'+esc(J())+'</b> ／ '+TH().n+'。月5冊。1冊目は棚に並ぶこと。<br>'+esc(D())+
+  $("#ro").innerHTML='いまの1冊：<b>'+esc(J())+'</b> ／ <b>'+AG()+'</b> ／ '+TH().n+'。月5冊。1冊目は棚に並ぶこと。<br>'+esc(D())+
     '<br>保存先：<b>'+(V.h?esc(V.h.name):"（vault 未選択）")+'/'+esc(bookPath(curKey||bookKey(+tsel.value)))+'/</b>';
   $("#p1").textContent=P1(); $("#p2").textContent=P2(); $("#p3").textContent=P3(); $("#p4").textContent=P4();
   buildShelf(); buildForm();
@@ -1084,6 +1115,7 @@ function resync(){
 (function init(){
   var g=lsGet("goal"), c=lsGet("cost");
   if(g) goal.value=g; if(c!=null) $("#cost").value=c;
+  var last=lsGet("last"); if(last!=null&&THEMES[last]) tsel.value=last;
   step2(); costCalc();
   switchBook(+tsel.value).then(function(){
     if(!V.fsa){vstat("","このブラウザはフォルダへの直接保存に非対応。各欄の「いま保存」で .md をダウンロードします。");$("#vpick").textContent="直接保存について";return}
